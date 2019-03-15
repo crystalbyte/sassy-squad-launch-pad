@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/crystalbyte/launch-pad/issues"
   },
-  "homepage": "https://github.com/crystalbyte/launch-pad#readme"
+  "homepage": "https://github.com/crystalbyte/launch-pad#readme",
+  "devDependencies": {
+    "electron": "^4.1.0"
+  }
 }
