@@ -16,6 +16,7 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        frame: false,
         icon: `file://${__dirname}/dist/launch-pad/favicon.ico`
     })
 
