@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+	production: false,
+	versionCheckUrl: "https://dev.sassy.crystalbyte.de/api/version",
+	clientDownloadUrl: "https://www.nutaku.net/games/sassy-squad/download/download/?os=1",
+	appInfoPath: "./app.json"
 };
 
 /*
