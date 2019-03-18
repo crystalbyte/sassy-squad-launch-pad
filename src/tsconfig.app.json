@@ -1,11 +1,31 @@
 {
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "../out-tsc/app",
-    "types": []
-  },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
-  ]
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../out-tsc/app",
+		"paths": {
+			"fs": [
+				"src/electron-shims.ts"
+			],
+			"os": [
+				"src/electron-shims.ts"
+			],
+			"zlib": [
+				"src/electron-shims.ts"
+			],
+			"path": [
+				"src/electron-shims.ts"
+			],
+			"https": [
+				"src/electron-shims.ts"
+			],
+			"http": [
+				"src/electron-shims.ts"
+			]
+		},
+		"types": []
+	},
+	"exclude": [
+		"test.ts",
+		"**/*.spec.ts"
+	]
 }
