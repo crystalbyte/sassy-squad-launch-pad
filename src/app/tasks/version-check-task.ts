@@ -18,13 +18,17 @@ export class VersionCheckTask extends Task {
 	}
 
 	public async run(): Promise<void> {
-		var local = await this.updateService.readLocalAppInfo();
-		var version = await this.updateService.getCurrentVersion();
+		// var local = await this.updateService.readLocalAppInfo();
+		const local = {
+			version: '1.0.0.0'
+		};
 
-		if (local.version != version.version) {
-			this.taskService.enqueue(new ClientDownloadTask("downloading", this.httpClient))
+		const version = await this.updateService.getCurrentVersion();
+
+		if (local.version !== version.version) {
+			this.taskService.enqueue(new ClientDownloadTask('downloading', this.httpClient));
 		} else {
-			this.taskService.enqueue(new LaunchGameTask("launching"));
+			this.taskService.enqueue(new LaunchGameTask('launching'));
 		}
 
 		return undefined;

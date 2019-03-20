@@ -1,14 +1,14 @@
-import * as winston from 'winston';
+let winston = window.require("winston");
 
 import { Injectable } from '@angular/core';
-import { Logger } from 'winston';
+
 
 @Injectable({
 	providedIn: 'root'
 })
 export class LogService {
 
-	private logger: Logger;
+	private logger: winston.Logger;
 
 	constructor() {
 		this.logger = winston.createLogger({
@@ -17,7 +17,7 @@ export class LogService {
 			defaultMeta: { service: 'user-service' },
 			transports: [
 				//
-				// - Write to all logs with level `info` and below to `combined.log` 
+				// - Write to all logs with level `info` and below to `combined.log`
 				// - Write all logs error (and below) to `error.log`.
 				//
 				new winston.transports.File({ filename: 'error.log', level: 'error' }),
@@ -28,7 +28,7 @@ export class LogService {
 		//
 		// If we're not in production then log to the `console` with the format:
 		// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-		// 
+		//
 		if (process.env.NODE_ENV !== 'production') {
 			this.logger.add(new winston.transports.Console({
 				format: winston.format.simple()

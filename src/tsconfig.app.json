@@ -22,7 +22,9 @@
 				"src/electron-shims.ts"
 			]
 		},
-		"types": []
+		"types": [
+			"node"
+		]
 	},
 	"exclude": [
 		"test.ts",
