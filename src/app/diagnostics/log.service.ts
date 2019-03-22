@@ -1,8 +1,6 @@
-// https://dev.to/michaeljota/integrating-an-angular-cli-application-with-electron---the-ipc-4m18
 import * as winston from 'winston';
 import { Logger } from 'winston';
 import { Injectable } from '@angular/core';
-
 
 @Injectable({
 	providedIn: 'root'

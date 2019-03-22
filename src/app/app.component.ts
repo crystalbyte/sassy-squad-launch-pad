@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LogService } from './log.service';
+import { LogService } from './diagnostics/log.service';
 import { Task } from './tasks/task';
 import { TaskService } from './tasks/task.service';
 import { VersionCheckTask } from './tasks/version-check-task';

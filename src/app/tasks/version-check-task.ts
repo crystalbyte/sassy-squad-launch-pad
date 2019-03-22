@@ -1,7 +1,7 @@
 import { Task } from './task';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from '../../environments/environment.prod';
 import { HttpClient, HttpEventType, HttpProgressEvent } from '@angular/common/http';
-import { ReleaseTrigger } from '../release-triggers';
+import { ReleaseTrigger } from '../events/release-triggers';
 import { Version } from '@angular/core';
 import { UpdateService } from '../net/update.service';
 import { TaskService } from './task.service';

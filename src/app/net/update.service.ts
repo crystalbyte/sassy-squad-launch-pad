@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { VersionModel } from '../models/version.model';
 import { AppInfoModel } from '../models/app-info.model';
 import { HttpClient } from '@angular/common/http';
