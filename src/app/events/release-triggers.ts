@@ -1,4 +1,4 @@
-import { Observable, ReplaySubject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 export class ReleaseTrigger {
 	public releases: ReplaySubject<void>;

@@ -1,8 +1,5 @@
 import { Task } from './task';
-import { environment } from '../../environments/environment.prod';
-import { HttpClient, HttpEventType, HttpProgressEvent } from '@angular/common/http';
-import { ReleaseTrigger } from '../events/release-triggers';
-import { Version } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { UpdateService } from '../net/update.service';
 import { TaskService } from './task.service';
 import { LaunchGameTask } from './launch-game-task';
