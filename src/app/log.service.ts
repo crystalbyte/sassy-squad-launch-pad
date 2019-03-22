@@ -1,6 +1,6 @@
-// const winston = window.require('winston');
 // https://dev.to/michaeljota/integrating-an-angular-cli-application-with-electron---the-ipc-4m18
-
+import * as winston from 'winston';
+import { Logger } from 'winston';
 import { Injectable } from '@angular/core';
 
 
@@ -9,47 +9,47 @@ import { Injectable } from '@angular/core';
 })
 export class LogService {
 
-	// private logger: winston.Logger;
+	private logger: Logger;
 
-	// constructor() {
-	// 	this.logger = winston.createLogger({
-	// 		level: 'info',
-	// 		format: winston.format.json(),
-	// 		defaultMeta: { service: 'user-service' },
-	// 		transports: [
-	// 			//
-	// 			// - Write to all logs with level `info` and below to `combined.log`
-	// 			// - Write all logs error (and below) to `error.log`.
-	// 			//
-	// 			new winston.transports.File({ filename: 'error.log', level: 'error' }),
-	// 			new winston.transports.File({ filename: 'combined.log' })
-	// 		]
-	// 	});
+	constructor() {
+		this.logger = winston.createLogger({
+			level: 'info',
+			format: winston.format.json(),
+			defaultMeta: { service: 'user-service' },
+			transports: [
+				//
+				// - Write to all logs with level `info` and below to `combined.log`
+				// - Write all logs error (and below) to `error.log`.
+				//
+				new winston.transports.File({ filename: 'error.log', level: 'error' }),
+				new winston.transports.File({ filename: 'combined.log' })
+			]
+		});
 
-	// 	//
-	// 	// If we're not in production then log to the `console` with the format:
-	// 	// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-	// 	//
-	// 	if (process.env.NODE_ENV !== 'production') {
-	// 		this.logger.add(new winston.transports.Console({
-	// 			format: winston.format.simple()
-	// 		}));
-	// 	}
-	// }
+		//
+		// If we're not in production then log to the `console` with the format:
+		// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
+		//
+		if (process.env.NODE_ENV !== 'production') {
+			this.logger.add(new winston.transports.Console({
+				format: winston.format.simple()
+			}));
+		}
+	}
 
 	public debug(message: string, ...meta: any[]): void {
-		// this.logger.debug(message, meta);
+		this.logger.debug(message, meta);
 	}
 
 	public info(message: string, ...meta: any[]): void {
-		// this.logger.info(message, meta);
+		this.logger.info(message, meta);
 	}
 
 	public warn(message: string, ...meta: any[]): void {
-		// this.logger.warn(message, meta);
+		this.logger.warn(message, meta);
 	}
 
 	public error(e: Error, ...meta: any[]): void {
-		// this.logger.error(e.message, meta);
+		this.logger.error(e.message, meta);
 	}
 }
