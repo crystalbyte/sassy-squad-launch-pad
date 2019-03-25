@@ -18,3 +18,19 @@
 {"service":"user-service","level":"error"}
 {"service":"user-service","level":"error"}
 {"service":"user-service","level":"error"}
+{"service":"user-service","level":"error","message":"Cannot read property 'error' of undefined"}
+{"service":"user-service","level":"error","message":"Cannot read property 'error' of undefined"}
+{"service":"user-service","level":"error","message":"Cannot read property 'error' of undefined"}
+{"service":"user-service","level":"error","message":"Cannot read property 'error' of undefined"}
+{"service":"user-service","level":"error","message":"Cannot read property 'error' of undefined"}
+{"service":"user-service","level":"error","message":"this.reportProgress is not a function"}
+{"service":"user-service","level":"error","message":"event.blob is not a function"}
+{"service":"user-service","level":"error","message":"ENOENT: no such file or directory, rename './Client' -> '$./Client'"}
+{"service":"user-service","level":"error","message":"ENOENT: no such file or directory, rename './Client' -> '$./Client'"}
+{"service":"user-service","level":"error","message":"EPERM: operation not permitted, rename './client' -> './client$'"}
+{"service":"user-service","level":"error","message":"EPERM: operation not permitted, rename './client' -> './client$'"}
+{"service":"user-service","level":"error","message":"EPERM: operation not permitted, rename './client' -> './client$'"}
+{"service":"user-service","level":"error","message":"EPERM: operation not permitted, rename './client' -> './client$'"}
+{"service":"user-service","level":"error","message":"EPERM: operation not permitted, rename './client' -> './client$'"}
+{"service":"user-service","level":"error","message":"EPERM: operation not permitted, rename './client' -> './client$'"}
+{"service":"user-service","level":"error","message":"EPERM: operation not permitted, rename './client' -> './client$'"}

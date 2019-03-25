@@ -31,7 +31,7 @@ $color: grey;
 
 		.error-strip {
 			height: 300px;
-			width: 100%;
+			align-self: stretch;
 			padding: 18px;
 			background-color: fade-out($color: #000000, $amount: 0.2);
 			@include strip-border($breadth, $color);

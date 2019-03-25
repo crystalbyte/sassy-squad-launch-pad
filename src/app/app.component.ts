@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LogService } from './diagnostics/log.service';
 import { DisposableComponent } from './components/disposable-component';
 import { AppService } from './app.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-root',
@@ -16,7 +18,20 @@ export class AppComponent extends DisposableComponent implements OnInit {
 		super();
 	}
 
+	public errors: Observable<string>;
+
+	public retry(_: Event) {
+		this.appService.run();
+	}
+
 	public ngOnInit(): void {
 		this.appService.run();
+		this.errors = this.logService.errors.pipe(map(x => {
+			if (x instanceof Error) {
+				return x.message;
+			}
+
+			return x;
+		}));
 	}
 }

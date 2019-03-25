@@ -6,8 +6,6 @@ import { environment } from '../../../environments/environment';
 import { AppService } from '../../app.service';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { UpdateService } from '../../updates/update.service';
-import { ProgressReport } from '../../updates/progress-report';
 
 @Component({
 	selector: 'app-start-page',
@@ -25,14 +23,24 @@ export class StartPageComponent extends DisposableComponent implements OnInit {
 	public prod: boolean;
 	public modes: Observable<string>;
 	public values: Observable<number>;
+	public messages: Observable<string>;
 
 	public ngOnInit() {
 		this.prod = environment.production;
 		this.modes = this.taskService.activeTaskChanges
-			.pipe(map(x => x.reportsProgress ? 'determinate' : 'indeterminate'));
+			.pipe(
+				switchMap(x => x.progressChanges),
+				map(x => x.mode));
 
 		this.values = this.taskService.activeTaskChanges
-			.pipe(switchMap(x => x.progressChanges), map(x => x.actual / x.total), tap(x => console.log(x)));
+			.pipe(
+				switchMap(x => x.progressChanges),
+				map(x => (x.actual / x.total) * 100));
+
+		this.messages = this.taskService.activeTaskChanges
+			.pipe(
+				switchMap(x => x.progressChanges),
+				map(x => x.action));
 	}
 
 	public quit(_: Event) {

@@ -11,11 +11,14 @@ export class ClientService {
 	constructor() { }
 
 	public async getClientInfo(): Promise<ClientInfoModel> {
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, _) => {
 			fs.exists(environment.appInfoPath, exists => {
 				if (!exists) {
-					reject(`App info file not found.`);
-					return;
+					return resolve({
+						name: 'Sassy Squad',
+						publisher: 'Nutaku Publishing',
+						version: 'none'
+					});
 				}
 
 				fs.readFile(environment.appInfoPath, { encoding: 'UTF-8' }, (_, data) => {
