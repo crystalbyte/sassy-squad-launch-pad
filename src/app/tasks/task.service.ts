@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Queue } from 'typescript-collections';
 import { Task } from './task';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class TaskService {
-
 	private tasks: Queue<Task>;
+	private activeTaskChangeSubject: ReplaySubject<Task>;
 
 	constructor() {
 		this.tasks = new Queue<Task>();
+		this.activeTaskChangeSubject = new ReplaySubject<Task>(1);
+	}
+
+	public activeTask: Task;
+	public get activeTaskChanges(): Observable<Task> {
+		return this.activeTaskChangeSubject.asObservable();
 	}
 
 	public enqueue(task: Task) {
@@ -21,12 +28,15 @@ export class TaskService {
 		this.tasks.dequeue();
 	}
 
-	public active: Task;
+	public reset(): any {
+		this.tasks.clear();
+	}
 
 	public async process(): Promise<void> {
 		while (this.tasks.size() > 0) {
-			this.active = this.tasks.dequeue();
-			await this.active.run();
+			this.activeTask = this.tasks.dequeue();
+			this.activeTaskChangeSubject.next(this.activeTask);
+			await this.activeTask.run();
 		}
 	}
 }

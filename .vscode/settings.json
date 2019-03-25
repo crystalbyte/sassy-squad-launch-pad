@@ -2,5 +2,7 @@
 	"editor.insertSpaces": false,
 	"editor.detectIndentation": false,
 	"editor.autoIndent": true,
-	"editor.useTabStops": true
+	"editor.useTabStops": true,
+	"scssFormatter.tabWidth": 4,
+	"scssFormatter.useTabs": true
 }

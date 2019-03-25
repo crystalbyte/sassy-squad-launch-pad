@@ -1,14 +1,18 @@
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, Observable } from 'rxjs';
 
 export class ReleaseTrigger {
-	public releases: ReplaySubject<void>;
+	private releaseSubject: ReplaySubject<void>;
 
 	constructor() {
-		this.releases = new ReplaySubject<void>(1);
+		this.releaseSubject = new ReplaySubject<void>(1);
+	}
+
+	public get releases(): Observable<void> {
+		return this.releaseSubject.asObservable();
 	}
 
 	public release(): void {
-		this.releases.next();
-		this.releases.complete();
+		this.releaseSubject.next();
+		this.releaseSubject.complete();
 	}
 }

@@ -1,1 +1,46 @@
+@import "../../node_modules/@angular/material/theming";
+@import "../themes/sassy-squad-theme.scss";
 
+$foreground: map-get($active-theme, foreground);
+$accent: map-get($active-theme, accent);
+
+$accent-color: mat-color($accent);
+$text-color: mat-color($foreground, text);
+
+$breadth: 2px;
+$color: grey;
+
+@mixin strip-border($breadth, $color) {
+	border-top: $breadth solid $color;
+	border-bottom: $breadth solid $color;
+}
+
+:host {
+	.error-overlay {
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		position: absolute;
+		left: 0;
+		top: 0;
+		color: $text-color;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+
+		.error-strip {
+			height: 300px;
+			width: 100%;
+			padding: 18px;
+			background-color: fade-out($color: #000000, $amount: 0.2);
+			@include strip-border($breadth, $color);
+
+			&-column {
+				width: 60%;
+				height: 100%;
+				margin: 0 auto;
+			}
+		}
+	}
+}

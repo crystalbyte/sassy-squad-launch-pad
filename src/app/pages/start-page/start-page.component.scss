@@ -1,0 +1,41 @@
+@import "../../../../node_modules/@angular/material/theming";
+@import "../../../themes/sassy-squad-theme.scss";
+
+$foreground: map-get($active-theme, foreground);
+$accent: map-get($active-theme, accent);
+
+$accent-color: mat-color($accent);
+$text-color: mat-color($foreground, text);
+
+:host {
+
+	.command-bar {
+		top: 0;
+		right: 0;
+		position: absolute;
+
+		.command-button {
+			width: 45px;
+			height: 29px;
+			padding-top: 2px;
+			border: 0 solid transparent;
+			background-color: transparent;
+			color: $text-color;
+
+			&:hover {
+				background-color: $accent-color;
+			}
+		}
+	}
+
+	#background-provider {
+		background-image: url("../../../assets/sassy-squad-bg.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+		color: $text-color;
+	}
+
+	#update-bar {
+		height: 10px;
+	}
+}

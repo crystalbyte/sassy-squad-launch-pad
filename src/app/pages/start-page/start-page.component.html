@@ -1,0 +1,17 @@
+<div id="background-provider" class="fullscreen flex flex-direction-column">
+	<div class="flex-stretch flex flex-direction-column fullscreen-padding">
+		<div class="flex-stretch"></div>
+		<div class="mat-body">
+			{{(taskService.activeTaskChanges | async)?.action}}
+		</div>
+	</div>
+	<mat-progress-bar [mode]="modes | async" [value]="(values | async)" id="update-bar"></mat-progress-bar>
+</div>
+<div class="flex flex-direction-row command-bar">
+	<button (click)="refresh($event)" class="command-button" *ngIf="!prod">
+		<i class="material-icons md-32">refresh</i>
+	</button>
+	<button (click)="quit($event)" class="command-button">
+		<i class="material-icons md-32">close</i>
+	</button>
+</div>

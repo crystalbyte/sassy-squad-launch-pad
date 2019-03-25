@@ -9,19 +9,21 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$sassy-squad-primary: mat-palette($mat-blue-grey, 500, 700, 900);
-$sassy-squad-accent: mat-palette($mat-pink, 500, 700, 900);
+$sassy-squad-primary: mat-palette($mat-blue-grey);
+$sassy-squad-accent: mat-palette($mat-pink);
 
 // The warn palette is optional (defaults to red).
 $sassy-squad-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$sassy-squad-theme: mat-light-theme($sassy-squad-primary, $sassy-squad-accent, $sassy-squad-warn);
+$sassy-squad-theme: mat-dark-theme($sassy-squad-primary, $sassy-squad-accent, $sassy-squad-warn);
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($sassy-squad-theme);
-
-// Publish the active theme.
+// Publish as active theme.
 $active-theme: $sassy-squad-theme;
+
+.sassy-squad-theme {
+	// Include theme styles for core and each component used in your app.
+	// Alternatively, you can import and @include the theme mixins for each component
+	// that you are using.
+	@include angular-material-theme($sassy-squad-theme);
+}

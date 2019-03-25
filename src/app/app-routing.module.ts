@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FoyerComponent } from './ui/foyer/foyer.component';
+import { StartPageComponent } from './pages/start-page/start-page.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: FoyerComponent,
+		component: StartPageComponent,
 		pathMatch: 'full'
 	}
 ];

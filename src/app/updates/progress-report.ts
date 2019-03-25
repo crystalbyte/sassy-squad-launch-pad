@@ -1,4 +1,4 @@
-export interface ProgressUpdate {
+export interface ProgressReport {
 	actual: number;
 	total: number;
 }

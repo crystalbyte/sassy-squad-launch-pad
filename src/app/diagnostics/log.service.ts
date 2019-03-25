@@ -1,6 +1,7 @@
 import * as winston from 'winston';
 import { Logger } from 'winston';
 import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -8,8 +9,10 @@ import { Injectable } from '@angular/core';
 export class LogService {
 
 	private logger: Logger;
+	private errorSubject: ReplaySubject<Error>;
 
 	constructor() {
+		this.errorSubject = new ReplaySubject<Error>(1);
 		this.logger = winston.createLogger({
 			level: 'info',
 			format: winston.format.json(),
@@ -35,6 +38,10 @@ export class LogService {
 		}
 	}
 
+	public get errors(): Observable<Error> {
+		return this.errorSubject;
+	}
+
 	public debug(message: string, ...meta: any[]): void {
 		this.logger.debug(message, meta);
 	}
@@ -49,5 +56,6 @@ export class LogService {
 
 	public error(e: Error, ...meta: any[]): void {
 		this.logger.error(e.message, meta);
+		this.errorSubject.next(e);
 	}
 }

@@ -1,20 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { FoyerComponent } from './ui/foyer/foyer.component';
-
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressBarModule } from '@angular/material';
+import { AppRoutingModule } from './app-routing.module';
+
+import { AppComponent } from './app.component';
+import { StartPageComponent } from './pages/start-page/start-page.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		FoyerComponent
+		StartPageComponent
 	],
 	imports: [
 		BrowserModule,
+		CommonModule,
 		HttpClientModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
@@ -23,4 +25,8 @@ import { MatProgressBarModule } from '@angular/material';
 	providers: [],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+	constructor() {
+		console.log('App Started.');
+	}
+}

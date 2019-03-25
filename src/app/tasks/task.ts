@@ -1,23 +1,24 @@
 import { Observable, ReplaySubject } from 'rxjs';
-import { ProgressUpdate } from '../net/progress-report';
+import { ProgressReport } from '../updates/progress-report';
 
 export abstract class Task {
 
-	private progressChangesInternal: ReplaySubject<ProgressUpdate>;
+	private progressChangesInternal: ReplaySubject<ProgressReport>;
 
-	public name: string;
-	public get progressChanges(): Observable<ProgressUpdate> {
+	public action: string;
+	public reportsProgress = false;
+	public get progressChanges(): Observable<ProgressReport> {
 		return this.progressChangesInternal;
 	}
 
 	public abstract run(): Promise<void>;
 
-	constructor(name: string) {
-		this.name = name;
-		this.progressChangesInternal = new ReplaySubject<ProgressUpdate>(1);
+	constructor(action: string) {
+		this.action = action;
+		this.progressChangesInternal = new ReplaySubject<ProgressReport>(1);
 	}
 
-	protected reportProgress(update: ProgressUpdate) {
+	protected reportProgress(update: ProgressReport) {
 		this.progressChangesInternal.next(update);
 	}
 }
