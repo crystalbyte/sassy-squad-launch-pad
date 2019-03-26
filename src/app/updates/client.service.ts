@@ -12,7 +12,7 @@ export class ClientService {
 
 	public async getClientInfo(): Promise<ClientInfoModel> {
 		return new Promise((resolve, _) => {
-			fs.exists(environment.appInfoPath, exists => {
+			fs.exists(environment.appJson, exists => {
 				if (!exists) {
 					return resolve({
 						name: 'Sassy Squad',
@@ -21,7 +21,7 @@ export class ClientService {
 					});
 				}
 
-				fs.readFile(environment.appInfoPath, { encoding: 'UTF-8' }, (_, data) => {
+				fs.readFile(environment.appJson, { encoding: 'UTF-8' }, (_, data) => {
 					const json = JSON.parse(data);
 					return resolve(json);
 				});

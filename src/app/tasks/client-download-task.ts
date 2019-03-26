@@ -1,10 +1,11 @@
 import { Task } from './task';
 import { environment } from '../../environments/environment.prod';
-import { HttpClient, HttpEventType, HttpRequest, HttpHeaders, HttpDownloadProgressEvent, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpRequest, HttpHeaders, HttpDownloadProgressEvent } from '@angular/common/http';
 import { tap, last, catchError } from 'rxjs/operators';
 import { LogService } from '../diagnostics/log.service';
 import { TaskService } from './task.service';
 import { UnzipTask } from './unzip-task';
+import { AppService } from '../app.service';
 
 export class ClientDownloadTask extends Task {
 
@@ -13,6 +14,7 @@ export class ClientDownloadTask extends Task {
 	constructor(
 		private http: HttpClient,
 		private taskService: TaskService,
+		private appService: AppService,
 		private logService: LogService) {
 		super();
 	}
@@ -47,7 +49,7 @@ export class ClientDownloadTask extends Task {
 		this.taskService.enqueue(new UnzipTask(
 			response.body,
 			this.logService,
-			this.taskService));
+			this.appService));
 	}
 
 	private onErrorOccurred(error: any): any {

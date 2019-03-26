@@ -1,11 +1,43 @@
-<div id="background-provider" class="fullscreen flex flex-direction-column">
-	<div class="flex-stretch flex flex-direction-column fullscreen-padding">
+<div class="flex flex-direction-column menu" *ngIf="!(busyChanges | async)">
+	<div class="flex flex-direction-row" [ngSwitch]="stateChanges | async">
+		<div class="flex flex-direction-column" *ngSwitchCase="0">
+			<h4 class="mat-h4"
+				i18n="@@game-ready">
+				Ready to go.</h4>
+			<span class="mat-body"
+				i18n="@@game-ready-description">
+				Your game is up to date.</span>
+		</div>
+		<div class="flex flex-direction-column" *ngSwitchCase="1">
+			<h4 class="mat-h4"
+				i18n="update-available|Short sentence prompting the user that an update is available@@update-available-title">
+				A new update is available!</h4>
+			<span class="mat-body"
+				i18n="update-available|Short sentence prompting he user to update the game client@@update-available-description">Hit
+				the update button to download and install the latest version.</span>
+		</div>
 		<div class="flex-stretch"></div>
-		<div class="mat-headline">
-			{{messages | async}}
+		<div class="flex" *ngSwitchCase="0">
+			<button class="fx-button fx-button-green" (click)="play($event)">
+				<span i18n="Launch game|A single word describing the game launch@@play">Launch</span>
+			</button>
+		</div>
+		<div class="flex" *ngSwitchCase="1">
+			<button class="fx-button fx-button-blue" (click)="update($event)">
+				<span i18n="Update client|A single word describing a client update@@update">Update</span>
+			</button>
 		</div>
 	</div>
-	<mat-progress-bar [mode]="modes | async" [value]="values | async" id="update-bar"></mat-progress-bar>
+</div>
+<div class="fullscreen flex flex-direction-column background-container">
+	<div class="flex-stretch flex flex-direction-column fullscreen-padding">
+		<div class="flex-stretch"></div>
+		<div class="mat-body" style="z-index: 1000;" *ngIf="!(errors | async)">
+			<span>{{messages | async}}</span>
+		</div>
+	</div>
+	<mat-progress-bar class="update-bar" [mode]="modes | async" color="accent" [value]="values | async">
+	</mat-progress-bar>
 </div>
 <div class="flex flex-direction-row command-bar">
 	<button (click)="refresh($event)" class="command-button" *ngIf="!prod">

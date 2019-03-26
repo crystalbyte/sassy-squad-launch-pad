@@ -1,23 +1,20 @@
 import * as AdmZip from 'adm-zip';
 import * as fs from 'fs';
+import * as rimraf from 'rimraf';
 import { Task } from './task';
-import { TaskService } from './task.service';
-import { LaunchGameTask } from './launch-game-task';
 import { LogService } from '../diagnostics/log.service';
 import { ReleaseTrigger } from '../events/release-triggers';
 import { environment } from '../../environments/environment';
+import { AppService } from '../app.service';
+import { AppState } from '../app-state';
 
 export class UnzipTask extends Task {
-
-	private trigger: ReleaseTrigger;
 
 	constructor(
 		private blob: Blob,
 		private logService: LogService,
-		private taskService: TaskService) {
+		private appService: AppService) {
 		super();
-
-		this.trigger = new ReleaseTrigger();
 	}
 
 	public async run(): Promise<void> {
@@ -26,25 +23,45 @@ export class UnzipTask extends Task {
 			mode: "indeterminate"
 		});
 
-		const path = environment.installationPath;
-		if (fs.existsSync(path)) {
-			fs.renameSync(path, `${path}$`);
+		const installPath = environment.installationPath;
+		const downloadPath = environment.downloadPath;
+
+		const cleanUpTrigger = new ReleaseTrigger();
+		if (fs.existsSync(downloadPath)) {
+			rimraf(downloadPath, () => {
+				cleanUpTrigger.release();
+			});
 		}
+
+		await cleanUpTrigger.releases.toPromise();
+		
+		let unzipTrigger = new ReleaseTrigger();
 
 		const reader = new FileReader();
 		reader.readAsArrayBuffer(this.blob);
 		reader.onloadend = _ => {
 			const buffer: ArrayBuffer = <ArrayBuffer>reader.result;
 			let zip = new AdmZip(new Buffer(buffer));
-			zip.extractAllToAsync(path, true, e => {
+			zip.extractAllToAsync(downloadPath, true, e => {
 				this.logService.error(e);
 			});
 
-			this.trigger.release();
+			unzipTrigger.release();
 		}
 
-		await this.trigger.releases.toPromise();
+		await unzipTrigger.releases.toPromise();
 
-		this.taskService.enqueue(new LaunchGameTask());
+		const copyTrigger = new ReleaseTrigger();
+		if (fs.existsSync(installPath)) {
+			rimraf(installPath, () => {
+				fs.renameSync(downloadPath, installPath);
+				copyTrigger.release();
+			});
+		}
+
+		await copyTrigger.releases.toPromise();
+
+
+		this.appService.state = AppState.Launchable;
 	}
 }

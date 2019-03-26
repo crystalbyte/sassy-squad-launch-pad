@@ -1,0 +1,5 @@
+@mixin text-outline($outline-size, $color) {
+	-webkit-text-stroke-width: $outline-size;
+	-webkit-text-stroke-color: $color;
+	paint-order: stroke fill;
+}

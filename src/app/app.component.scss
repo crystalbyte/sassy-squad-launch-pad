@@ -2,16 +2,14 @@
 @import "../themes/sassy-squad-theme.scss";
 
 $foreground: map-get($active-theme, foreground);
+$warn: map-get($active-theme, warn);
 $accent: map-get($active-theme, accent);
 
 $accent-color: mat-color($accent);
 $text-color: mat-color($foreground, text);
-
-$breadth: 2px;
-$color: grey;
+$warn-color: mat-color($warn, text);
 
 @mixin strip-border($breadth, $color) {
-	border-top: $breadth solid $color;
 	border-bottom: $breadth solid $color;
 }
 
@@ -30,11 +28,12 @@ $color: grey;
 		flex-direction: column;
 
 		.error-strip {
-			height: 300px;
+			max-height: 300px;
 			align-self: stretch;
 			padding: 18px;
 			background-color: fade-out($color: #000000, $amount: 0.2);
-			@include strip-border($breadth, $color);
+
+			@include strip-border(1px, $accent-color);
 
 			&-column {
 				width: 60%;

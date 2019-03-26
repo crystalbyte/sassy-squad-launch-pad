@@ -1,5 +1,6 @@
 @import "../../../../node_modules/@angular/material/theming";
 @import "../../../themes/sassy-squad-theme.scss";
+@import "../../../styles/text";
 
 $foreground: map-get($active-theme, foreground);
 $accent: map-get($active-theme, accent);
@@ -7,7 +8,33 @@ $accent: map-get($active-theme, accent);
 $accent-color: mat-color($accent);
 $text-color: mat-color($foreground, text);
 
+$progress-bar-height: 18px;
+$menu-padding: 20px;
+
 :host {
+
+	.menu {
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		position: absolute;
+		background-color: fade-out($color: #000000, $amount: 0.4);
+		padding: $menu-padding $menu-padding $menu-padding + $progress-bar-height $menu-padding;
+		color: $text-color;
+
+		& * h4 {
+			font-size: 1.2em;
+			padding: 0;
+		}
+	}
+
+	.background-container {
+		background-image: url("../../../assets/sassy-squad-bg.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+		color: $text-color;
+	}
 
 	.command-bar {
 		top: 0;
@@ -28,14 +55,42 @@ $text-color: mat-color($foreground, text);
 		}
 	}
 
-	#background-provider {
-		background-image: url("../../../assets/sassy-squad-bg.png");
-		background-repeat: no-repeat;
-		background-size: cover;
+	.fx-button {
+		width: 180px;
+		height: 60px;
+		border-width: 0px;
+		border-image-slice: 0 fill;
+		background-color: transparent;
 		color: $text-color;
+		font-size: 2.0em;
+		text-align: center;
+
+		&-green {
+			border-image-source: url("./../../../assets/ui-button-green.png");
+
+			&:hover {
+				border-image-source: url("./../../../assets/ui-button-green-active.png");
+			}
+		}
+
+		&-yellow {
+			border-image-source: url("./../../../assets/ui-button-yellow.png");
+
+			&:hover {
+				border-image-source: url("./../../../assets/ui-button-yellow-active.png");
+			}
+		}
+
+		&-blue {
+			border-image-source: url("./../../../assets/ui-button-blue.png");
+
+			&:hover {
+				border-image-source: url("./../../../assets/ui-button-blue-active.png");
+			}
+		}
 	}
 
-	#update-bar {
-		height: 10px;
+	.update-bar {
+		height: $progress-bar-height;
 	}
 }

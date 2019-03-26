@@ -38,6 +38,10 @@ export class LogService {
 		}
 	}
 
+	public clear() {
+		this.errorSubject.next(undefined);
+	}
+
 	public get errors(): Observable<Error> {
 		return this.errorSubject;
 	}
