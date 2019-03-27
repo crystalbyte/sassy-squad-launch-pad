@@ -75,3 +75,27 @@
 {"service":"user-service","level":"error","message":"EPERM: operation not permitted, rename './client' -> './client$'"}
 {"service":"user-service","level":"error","message":"EPERM: operation not permitted, rename './client' -> './client$'"}
 {"service":"user-service","level":"error","message":"EPERM: operation not permitted, rename './client' -> './client$'"}
+{"service":"user-service","level":"error","message":"Unable to launch the game. The executable not found!"}
+{"service":"user-service","level":"error","message":"Unable to launch the game. Executable not found!"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"test"}
+{"service":"user-service","level":"error","message":"spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"test"}
+{"service":"user-service","level":"error","message":"Unable to launch the game. Error: spawn client\\SassySquad.exe ENOENT"}
+{"service":"user-service","level":"error","message":"Unable to launch the game. Error: Command failed: d:\\Projects\\launch-pad\\client\\SassySquad.exe\n"}
+{"service":"user-service","level":"error","message":"Unable to launch the game. Error: Command failed: d:\\Projects\\launch-pad\\client\\SassySquad.exe\n"}
+{"service":"user-service","level":"error","message":"Unable to launch the game. Error: Command failed: d:\\Projects\\launch-pad\\client\\SassySquad.exe\n"}
+{"service":"user-service","level":"error","message":"Unable to launch the game. Error: Command failed: d:\\Projects\\launch-pad\\client\\SassySquad.exe\n"}
+{"service":"user-service","level":"error","message":"Unable to launch the game. Error: Command failed: d:\\Projects\\launch-pad\\client\\SassySquad.exe\n"}

@@ -9,7 +9,7 @@ export abstract class Task {
 		return this.progressChangeSubject;
 	}
 
-	public abstract run(): Promise<void>;
+	public async abstract run(): Promise<void>;
 
 	constructor() {
 		this.progressChangeSubject = new ReplaySubject<ProgressReport>(1);

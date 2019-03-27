@@ -4,10 +4,10 @@ import { HttpClient, HttpEventType, HttpRequest, HttpHeaders, HttpDownloadProgre
 import { tap, last, catchError } from 'rxjs/operators';
 import { LogService } from '../diagnostics/log.service';
 import { TaskService } from './task.service';
-import { UnzipTask } from './unzip-task';
+import { InstallTask } from './install-task';
 import { AppService } from '../app.service';
 
-export class ClientDownloadTask extends Task {
+export class DownloadTask extends Task {
 
 	private action = 'Downloading Game ...';
 
@@ -20,7 +20,7 @@ export class ClientDownloadTask extends Task {
 	}
 
 	public async run(): Promise<void> {
-		console.log('Client download started ...');
+		console.log('Download started ...');
 
 		this.reportProgress({
 			action: `${this.action}`,
@@ -46,7 +46,7 @@ export class ClientDownloadTask extends Task {
 
 		console.log('Client download finished.');
 
-		this.taskService.enqueue(new UnzipTask(
+		this.taskService.enqueue(new InstallTask(
 			response.body,
 			this.logService,
 			this.appService));
@@ -65,13 +65,21 @@ export class ClientDownloadTask extends Task {
 
 		if (event.type === HttpEventType.DownloadProgress) {
 			const progress = <HttpDownloadProgressEvent>event;
-			const percentage = Math.floor((progress.loaded / progress.total) * 100);
-			this.reportProgress({
-				total: progress.total,
-				actual: progress.loaded,
-				action: `${this.action} ${percentage}%`,
-				mode: 'determinate'
-			});
+			// We can only show progress when the server has sent the Content-Length header.
+			if (progress.total) {
+				const percentage = Math.floor((progress.loaded / progress.total) * 100);
+				this.reportProgress({
+					total: progress.total,
+					actual: progress.loaded,
+					action: `${this.action} ${percentage}%`,
+					mode: 'determinate'
+				});
+			} else {
+				this.reportProgress({
+					action: `${this.action}`,
+					mode: 'indeterminate'
+				});
+			}
 		}
 	}
 }

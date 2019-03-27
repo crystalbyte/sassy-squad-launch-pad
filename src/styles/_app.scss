@@ -10,9 +10,41 @@ body {
 	-webkit-text-size-adjust: 100%;
 }
 
-button {
-	outline: 0;
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: default;
+}
+input,
+button,
+textarea,
+:focus {
+	outline: none; // You should add some other style for :focus to help UX/a11y
 	-webkit-app-region: no-drag;
+}
+
+.window-frame {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.visible-content {
+	width: 900px;
+	height: 506px;
+	position: relative;
+}
+
+.justify-items-center {
+	justify-content: center;
+}
+
+.block {
+	display: block;
 }
 
 .absolute {

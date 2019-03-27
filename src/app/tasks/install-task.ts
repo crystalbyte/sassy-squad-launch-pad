@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 import { AppService } from '../app.service';
 import { AppState } from '../app-state';
 
-export class UnzipTask extends Task {
+export class InstallTask extends Task {
 
 	constructor(
 		private blob: Blob,
@@ -19,7 +19,7 @@ export class UnzipTask extends Task {
 
 	public async run(): Promise<void> {
 		this.reportProgress({
-			action: 'Installing Game ...',
+			action: 'Installing ...',
 			mode: 'indeterminate'
 		});
 
@@ -31,37 +31,48 @@ export class UnzipTask extends Task {
 			rimraf(downloadPath, () => {
 				cleanUpTrigger.release();
 			});
-		}
 
-		await cleanUpTrigger.releases.toPromise();
+			await cleanUpTrigger.releases.toPromise();
+		}
 
 		const unzipTrigger = new ReleaseTrigger();
 
 		const reader = new FileReader();
-		reader.readAsArrayBuffer(this.blob);
 		reader.onloadend = _ => {
 			const buffer: ArrayBuffer = <ArrayBuffer>reader.result;
 			const zip = new AdmZip(new Buffer(buffer));
 			zip.extractAllToAsync(downloadPath, true, e => {
-				this.logService.error(e);
-			});
+				if (e) {
+					this.logService.error(e);
+					return;
+				}
 
-			unzipTrigger.release();
+				unzipTrigger.release();
+			});
 		};
+
+		reader.readAsArrayBuffer(this.blob);
 
 		await unzipTrigger.releases.toPromise();
 
 		const copyTrigger = new ReleaseTrigger();
 		if (fs.existsSync(installPath)) {
 			rimraf(installPath, () => {
-				fs.renameSync(downloadPath, installPath);
 				copyTrigger.release();
 			});
+
+			await copyTrigger.releases.toPromise();
 		}
 
-		await copyTrigger.releases.toPromise();
+		fs.renameSync(downloadPath, installPath);
 
+		this.reportProgress({
+			action: '',
+			mode: 'determinate',
+			total: 1,
+			actual: 1
+		});
 
-		this.appService.state = AppState.Launchable;
+		this.appService.state = AppState.Ready;
 	}
 }

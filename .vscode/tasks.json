@@ -13,6 +13,13 @@
 			"problemMatcher": [
 				"$tsc"
 			]
+		},
+		{
+			"type": "npm",
+			"script": "electron:windows",
+			"problemMatcher": [
+				"$tsc"
+			]
 		}
 	]
 }

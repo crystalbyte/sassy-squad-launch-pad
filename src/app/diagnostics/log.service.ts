@@ -13,6 +13,8 @@ export class LogService {
 
 	constructor() {
 		this.errorSubject = new ReplaySubject<Error>(1);
+		this.errorSubject.next(undefined);
+		
 		this.logger = winston.createLogger({
 			level: 'info',
 			format: winston.format.json(),
@@ -43,7 +45,7 @@ export class LogService {
 	}
 
 	public get errors(): Observable<Error> {
-		return this.errorSubject;
+		return this.errorSubject.asObservable();
 	}
 
 	public debug(message: string, ...meta: any[]): void {

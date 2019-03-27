@@ -5,12 +5,11 @@ import { DisposableComponent } from '../../components/disposable-component';
 import { environment } from '../../../environments/environment';
 import { AppService } from '../../app.service';
 import { Observable } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { LaunchGameTask } from '../../tasks/launch-game-task';
-import { ClientDownloadTask } from '../../tasks/client-download-task';
+import { map, switchMap, takeUntil, filter } from 'rxjs/operators';
+import { LaunchTask } from '../../tasks/launch-task';
+import { DownloadTask } from '../../tasks/download-task';
 import { HttpClient } from '@angular/common/http';
 import { LogService } from '../../diagnostics/log.service';
-import { AppState } from '../../app-state';
 
 @Component({
 	selector: 'app-start-page',
@@ -52,6 +51,7 @@ export class StartPageComponent extends DisposableComponent implements OnInit {
 		this.values = this.taskService.activeTaskChanges
 			.pipe(
 				switchMap(x => x.progressChanges),
+				filter(x => x.total !== undefined),
 				map(x => (x.actual / x.total) * 100));
 
 		this.messages = this.taskService.activeTaskChanges
@@ -61,16 +61,21 @@ export class StartPageComponent extends DisposableComponent implements OnInit {
 
 		this.logService.errors
 			.pipe(
+				filter(x => x !== undefined),
 				takeUntil(this.trigger.releases))
-			.subscribe(x => {
+			.subscribe(_ => {
 				this.appService.run();
 			});
+	}
+
+	public error(_: Event) {
+		this.logService.error(new Error("test"));
 	}
 
 	public update(_: Event) {
 		this.logService.clearStoredErrors();
 		this.taskService.reset();
-		this.taskService.enqueue(new ClientDownloadTask(
+		this.taskService.enqueue(new DownloadTask(
 			this.httpClient,
 			this.taskService,
 			this.appService,
@@ -82,7 +87,7 @@ export class StartPageComponent extends DisposableComponent implements OnInit {
 	public play(_: Event) {
 		this.logService.clearStoredErrors();
 		this.taskService.reset();
-		this.taskService.enqueue(new LaunchGameTask());
+		this.taskService.enqueue(new LaunchTask());
 
 		this.taskService.process();
 	}

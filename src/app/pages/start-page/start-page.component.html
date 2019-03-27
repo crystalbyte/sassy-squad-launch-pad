@@ -1,20 +1,20 @@
 <div class="flex flex-direction-column menu" *ngIf="!(busyChanges | async)">
-	<div class="flex flex-direction-row" [ngSwitch]="stateChanges | async">
-		<div class="flex flex-direction-column" *ngSwitchCase="0">
-			<h4 class="mat-h4"
-				i18n="@@game-ready">
-				Ready to go.</h4>
-			<span class="mat-body"
-				i18n="@@game-ready-description">
-				Your game is up to date.</span>
+	<div class="flex flex-direction-row menu-row" [ngSwitch]="stateChanges | async">
+		<div class="flex flex-direction-column justify-items-center" *ngSwitchCase="0">
+			<span class="mat-body-strong block" i18n="@@game-ready">@@game-ready</span>
+			<span class="mat-caption" i18n="@@game-ready-description">@@game-ready-description</span>
 		</div>
-		<div class="flex flex-direction-column" *ngSwitchCase="1">
-			<h4 class="mat-h4"
+		<div class="flex flex-direction-column justify-items-center" *ngSwitchCase="1">
+			<span class="mat-body-strong block"
 				i18n="update-available|Short sentence prompting the user that an update is available@@update-available-title">
-				A new update is available!</h4>
-			<span class="mat-body"
-				i18n="update-available|Short sentence prompting he user to update the game client@@update-available-description">Hit
-				the update button to download and install the latest version.</span>
+				A new update is available!</span>
+			<span class="mat-caption"
+				i18n="update-available|Short sentence prompting he user to update the game client@@update-available-description">
+				Hit the update button to download and install the latest version.</span>
+		</div>
+		<div class="flex flex-direction-column justify-items-center" *ngSwitchCase="2">
+			<span class="mat-body-strong block" i18n="@@game-installation">@@game-installation</span>
+			<span class="mat-caption" i18n="@@game-installation-description">@@game-installation-description</span>
 		</div>
 		<div class="flex-stretch"></div>
 		<div class="flex" *ngSwitchCase="0">
@@ -25,6 +25,11 @@
 		<div class="flex" *ngSwitchCase="1">
 			<button class="fx-button fx-button-blue" (click)="update($event)">
 				<span i18n="Update client|A single word describing a client update@@update">Update</span>
+			</button>
+		</div>
+		<div class="flex" *ngSwitchCase="2">
+			<button class="fx-button fx-button-blue" (click)="update($event)">
+				<span i18n="Install update|A single word describing a client installation@@install">Install</span>
 			</button>
 		</div>
 	</div>
@@ -40,6 +45,9 @@
 	</mat-progress-bar>
 </div>
 <div class="flex flex-direction-row command-bar">
+	<button (click)="error($event)" class="command-button" *ngIf="!prod">
+		<i class="material-icons md-32">error</i>
+	</button>
 	<button (click)="refresh($event)" class="command-button" *ngIf="!prod">
 		<i class="material-icons md-32">refresh</i>
 	</button>
@@ -47,3 +55,4 @@
 		<i class="material-icons md-32">close</i>
 	</button>
 </div>
+<img src="assets/logo.png" class="logo">

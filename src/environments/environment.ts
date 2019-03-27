@@ -5,7 +5,7 @@
 export const environment = {
 	production: false,
 	versionCheckUrl: 'https://dev.sassy.crystalbyte.de/api/version',
-	clientDownloadUrl: 'https://dev.sassy.crystalbyte.de/api/balancings',
+	clientDownloadUrl: 'https://drive.google.com/uc?authuser=0&id=1GTdIeMv8l3a0PRBcegxx9g2Q793FyW3G&export=download',
 	appJson: 'app.json',
 	installationPath: "./client",
 	downloadPath: "./$temp",

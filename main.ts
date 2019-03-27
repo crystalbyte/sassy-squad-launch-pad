@@ -13,10 +13,13 @@ function createWindow() {
 
 	// Create the browser window.
 	win = new BrowserWindow({
-		width: 900,
+		width: 1180,
 		resizable: false,
-		height: 506,
+		transparent: true,
+		backgroundColor: "#00000000",
+		height: 680,
 		frame: false,
+		icon: path.join(__dirname, "assets/icon.png"),
 		webPreferences: {
 			nodeIntegration: true,
 		},

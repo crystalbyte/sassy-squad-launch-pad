@@ -22,16 +22,18 @@ export class AppComponent extends DisposableComponent implements OnInit {
 
 	public retry(_: Event) {
 		this.appService.run();
-	}
+	}	
 
 	public ngOnInit(): void {
-		this.appService.run();
-		this.errors = this.logService.errors.pipe(map(x => {
-			if (x instanceof Error) {
-				return x.message;
-			}
+		this.errors = this.logService.errors
+			.pipe(map(x => {
+				if (x instanceof Error) {
+					return x.message;
+				}
 
-			return x;
-		}));
+				return x;
+			}));
+
+		this.appService.run();
 	}
 }

@@ -4,8 +4,9 @@ import * as fs from 'fs';
 import { Task } from './task';
 import { environment } from '../../environments/environment';
 import { ReleaseTrigger } from '../events/release-triggers';
+import { remote } from 'electron';
 
-export class LaunchGameTask extends Task {
+export class LaunchTask extends Task {
 
 	constructor() {
 		super();
@@ -14,22 +15,36 @@ export class LaunchGameTask extends Task {
 	public async run(): Promise<void> {
 
 		this.reportProgress({
+			action: 'Launching ...',
 			mode: 'indeterminate',
-			action: 'Launching ...'
 		});
 
 		const trigger = new ReleaseTrigger();
-		const p = path.join(environment.installationPath, environment.executable);
+		const appPath = remote.app.getAppPath();
+		const p = path.join(appPath, environment.installationPath, environment.executable);
 		if (!fs.existsSync(p)) {
-			throw new Error('Unable to launch the game. The executable not found!');
+			throw new Error('Unable to launch the game. Executable not found!');
 		}
 
+		let launchError: any = undefined;
 		process.execFile(p, {
 			cwd: environment.installationPath,
-		}, _ => {
+		}, e => {
+			launchError = e;
 			trigger.release();
 		});
 
 		await trigger.releases.toPromise();
+
+		if (launchError) {
+			throw new Error(`Unable to launch the game. ${launchError}`);
+		}
+
+		this.reportProgress({
+			action: '',
+			mode: 'determinate',
+			actual: 1,
+			total: 1
+		});
 	}
 }

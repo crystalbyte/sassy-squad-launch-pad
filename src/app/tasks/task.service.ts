@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Queue } from 'typescript-collections';
 import { Task } from './task';
 import { Observable, ReplaySubject } from 'rxjs';
+import { LogService } from '../diagnostics/log.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,7 +12,7 @@ export class TaskService {
 	private activeTaskChangeSubject: ReplaySubject<Task>;
 	private busyChangeSubject: ReplaySubject<boolean>;
 
-	constructor() {
+	constructor(private logService: LogService) {
 		this.tasks = new Queue<Task>();
 		this.activeTaskChangeSubject = new ReplaySubject<Task>(1);
 		this.busyChangeSubject = new ReplaySubject<boolean>(1);
@@ -38,7 +39,7 @@ export class TaskService {
 		this.tasks.clear();
 	}
 
-	public async process(): Promise<void> {
+	public async process() {
 		try {
 			this.busyChangeSubject.next(true);
 
@@ -47,7 +48,10 @@ export class TaskService {
 				this.activeTaskChangeSubject.next(this.activeTask);
 				await this.activeTask.run();
 			}
+		} catch (e) {
+			this.logService.error(e);
 		} finally {
+			this.activeTask = undefined;
 			this.busyChangeSubject.next(false);
 		}
 	}

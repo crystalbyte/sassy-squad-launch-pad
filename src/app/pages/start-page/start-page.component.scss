@@ -8,9 +8,17 @@ $accent-color: mat-color($accent);
 $text-color: mat-color($foreground, text);
 
 $progress-bar-height: 18px;
-$menu-padding: 20px;
+$menu-padding: 12px;
 
 :host {
+	.logo {
+		position: absolute;
+		left: -60px;
+		top: -80px;
+		width: 400px;
+		height: auto;
+		transform: rotate(-12deg);
+	}
 
 	.menu {
 		left: 0;
@@ -21,6 +29,10 @@ $menu-padding: 20px;
 		background-color: fade-out($color: #000000, $amount: 0.4);
 		padding: $menu-padding $menu-padding $menu-padding + $progress-bar-height $menu-padding;
 		color: $text-color;
+
+		&-row {
+			justify-content: center;
+		}
 
 		& * h4 {
 			font-size: 1.2em;
@@ -47,6 +59,7 @@ $menu-padding: 20px;
 			border: 0 solid transparent;
 			background-color: transparent;
 			color: $text-color;
+			transition: 0.3s;
 
 			&:hover {
 				background-color: $accent-color;
@@ -55,13 +68,13 @@ $menu-padding: 20px;
 	}
 
 	.fx-button {
-		width: 160px;
-		height: 50px;
+		width: 140px;
+		height: 44px;
 		border-width: 0px;
 		border-image-slice: 0 fill;
 		background-color: transparent;
 		color: $text-color;
-		font-size: 2.0em;
+		font-size: 1.4em;
 		text-align: center;
 
 		&-green {

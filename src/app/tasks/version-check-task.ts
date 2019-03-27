@@ -15,15 +15,20 @@ export class VersionCheckTask extends Task {
 
 	public async run(): Promise<void> {
 		this.reportProgress({
-			action: 'Checking Game Version ...',
+			action: 'Checking game version ...',
 			mode: "indeterminate"
 		});
 
 		const local = await this.clientService.getClientInfo();
 		const remote = await this.updateService.getVersion();
-		this.appService.state = local.version === remote.version 
-			? AppState.Launchable 
-			: AppState.UpdateRequired;
+
+		if (local.version === 'none') {
+			this.appService.state = AppState.InstallationRequired;
+		} else {
+			this.appService.state = local.version === remote.version
+				? AppState.Ready
+				: AppState.UpdateRequired;
+		}
 
 		this.reportProgress({
 			action: '',
