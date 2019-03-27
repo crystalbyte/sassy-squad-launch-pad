@@ -68,7 +68,7 @@ export class StartPageComponent extends DisposableComponent implements OnInit {
 	}
 
 	public update(_: Event) {
-		this.logService.clear();
+		this.logService.clearStoredErrors();
 		this.taskService.reset();
 		this.taskService.enqueue(new ClientDownloadTask(
 			this.httpClient,
@@ -80,7 +80,7 @@ export class StartPageComponent extends DisposableComponent implements OnInit {
 	}
 
 	public play(_: Event) {
-		this.logService.clear();
+		this.logService.clearStoredErrors();
 		this.taskService.reset();
 		this.taskService.enqueue(new LaunchGameTask());
 

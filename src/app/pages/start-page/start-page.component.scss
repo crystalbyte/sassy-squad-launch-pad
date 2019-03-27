@@ -1,6 +1,5 @@
 @import "../../../../node_modules/@angular/material/theming";
 @import "../../../themes/sassy-squad-theme.scss";
-@import "../../../styles/text";
 
 $foreground: map-get($active-theme, foreground);
 $accent: map-get($active-theme, accent);
@@ -56,8 +55,8 @@ $menu-padding: 20px;
 	}
 
 	.fx-button {
-		width: 180px;
-		height: 60px;
+		width: 160px;
+		height: 50px;
 		border-width: 0px;
 		border-image-slice: 0 fill;
 		background-color: transparent;
