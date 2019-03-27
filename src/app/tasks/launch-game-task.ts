@@ -14,14 +14,14 @@ export class LaunchGameTask extends Task {
 	public async run(): Promise<void> {
 
 		this.reportProgress({
-			mode: "indeterminate",
-			action: "Launching ..."
+			mode: 'indeterminate',
+			action: 'Launching ...'
 		});
 
-		let trigger = new ReleaseTrigger();
-		let p = path.join(environment.installationPath, environment.executable);
+		const trigger = new ReleaseTrigger();
+		const p = path.join(environment.installationPath, environment.executable);
 		if (!fs.existsSync(p)) {
-			throw new Error("Unable to launch the game. The executable not found!");
+			throw new Error('Unable to launch the game. The executable not found!');
 		}
 
 		process.execFile(p, {

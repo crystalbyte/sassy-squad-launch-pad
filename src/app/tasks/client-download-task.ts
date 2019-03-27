@@ -9,7 +9,7 @@ import { AppService } from '../app.service';
 
 export class ClientDownloadTask extends Task {
 
-	private action: string = 'Downloading Game ...';
+	private action = 'Downloading Game ...';
 
 	constructor(
 		private http: HttpClient,
@@ -20,12 +20,12 @@ export class ClientDownloadTask extends Task {
 	}
 
 	public async run(): Promise<void> {
-		console.log("Client download started ...");
+		console.log('Client download started ...');
 
 		this.reportProgress({
 			action: `${this.action}`,
-			mode: "determinate"
-		})
+			mode: 'determinate'
+		});
 
 		const request: any = new HttpRequest('GET', environment.clientDownloadUrl, undefined, {
 			reportProgress: true,
@@ -37,14 +37,14 @@ export class ClientDownloadTask extends Task {
 			})
 		});
 
-		let response: any = await this.http.request(request)
+		const response: any = await this.http.request(request)
 			.pipe(
 				tap(x => this.onRequestEventTriggered(x)),
 				last(),
 				catchError(x => this.onErrorOccurred(x)))
 			.toPromise();
 
-		console.log("Client download finished.");
+		console.log('Client download finished.');
 
 		this.taskService.enqueue(new UnzipTask(
 			response.body,
@@ -65,12 +65,12 @@ export class ClientDownloadTask extends Task {
 
 		if (event.type === HttpEventType.DownloadProgress) {
 			const progress = <HttpDownloadProgressEvent>event;
-			let percentage = Math.floor((progress.loaded / progress.total) * 100);
+			const percentage = Math.floor((progress.loaded / progress.total) * 100);
 			this.reportProgress({
 				total: progress.total,
 				actual: progress.loaded,
 				action: `${this.action} ${percentage}%`,
-				mode: "determinate"
+				mode: 'determinate'
 			});
 		}
 	}

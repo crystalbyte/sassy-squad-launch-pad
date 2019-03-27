@@ -20,7 +20,7 @@ export class UnzipTask extends Task {
 	public async run(): Promise<void> {
 		this.reportProgress({
 			action: 'Installing Game ...',
-			mode: "indeterminate"
+			mode: 'indeterminate'
 		});
 
 		const installPath = environment.installationPath;
@@ -34,20 +34,20 @@ export class UnzipTask extends Task {
 		}
 
 		await cleanUpTrigger.releases.toPromise();
-		
-		let unzipTrigger = new ReleaseTrigger();
+
+		const unzipTrigger = new ReleaseTrigger();
 
 		const reader = new FileReader();
 		reader.readAsArrayBuffer(this.blob);
 		reader.onloadend = _ => {
 			const buffer: ArrayBuffer = <ArrayBuffer>reader.result;
-			let zip = new AdmZip(new Buffer(buffer));
+			const zip = new AdmZip(new Buffer(buffer));
 			zip.extractAllToAsync(downloadPath, true, e => {
 				this.logService.error(e);
 			});
 
 			unzipTrigger.release();
-		}
+		};
 
 		await unzipTrigger.releases.toPromise();
 
