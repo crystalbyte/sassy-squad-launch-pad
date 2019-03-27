@@ -38,7 +38,7 @@ export class LogService {
 		}
 	}
 
-	public clear() {
+	public clearStoredErrors() {
 		this.errorSubject.next(undefined);
 	}
 
