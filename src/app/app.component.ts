@@ -22,7 +22,7 @@ export class AppComponent extends DisposableComponent implements OnInit {
 
 	public retry(_: Event) {
 		this.appService.run();
-	}	
+	}
 
 	public ngOnInit(): void {
 		this.errors = this.logService.errors

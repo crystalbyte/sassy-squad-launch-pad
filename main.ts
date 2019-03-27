@@ -16,10 +16,10 @@ function createWindow() {
 		width: 1180,
 		resizable: false,
 		transparent: true,
-		backgroundColor: "#00000000",
+		backgroundColor: '#00000000',
 		height: 680,
 		frame: false,
-		icon: path.join(__dirname, "assets/icon.png"),
+		icon: path.join(__dirname, 'assets/icon.png'),
 		webPreferences: {
 			nodeIntegration: true,
 		},

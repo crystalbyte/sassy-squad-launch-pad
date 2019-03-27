@@ -14,7 +14,7 @@ export class LogService {
 	constructor() {
 		this.errorSubject = new ReplaySubject<Error>(1);
 		this.errorSubject.next(undefined);
-		
+
 		this.logger = winston.createLogger({
 			level: 'info',
 			format: winston.format.json(),

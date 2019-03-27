@@ -69,7 +69,7 @@ export class StartPageComponent extends DisposableComponent implements OnInit {
 	}
 
 	public error(_: Event) {
-		this.logService.error(new Error("test"));
+		this.logService.error(new Error('test'));
 	}
 
 	public update(_: Event) {

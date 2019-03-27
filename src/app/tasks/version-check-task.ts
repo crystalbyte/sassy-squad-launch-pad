@@ -16,7 +16,7 @@ export class VersionCheckTask extends Task {
 	public async run(): Promise<void> {
 		this.reportProgress({
 			action: 'Checking game version ...',
-			mode: "indeterminate"
+			mode: 'indeterminate'
 		});
 
 		const local = await this.clientService.getClientInfo();
@@ -32,7 +32,7 @@ export class VersionCheckTask extends Task {
 
 		this.reportProgress({
 			action: '',
-			mode: "determinate",
+			mode: 'determinate',
 			actual: 1,
 			total: 1
 		});
