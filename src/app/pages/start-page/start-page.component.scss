@@ -10,20 +10,18 @@ $text-color: mat-color($foreground, text);
 $progress-bar-height: 18px;
 $menu-padding: 12px;
 
-@mixin make-cover() {
-	border-width: inherit;
-	border-image-slice: inherit;
-	opacity: 0;
-}
-
 :host {
 	.logo {
-		position: absolute;
-		left: -60px;
-		top: -80px;
-		width: 400px;
+		left: -54px;
+		top: -108px;
+		width: 300px;
 		height: auto;
-		transform: rotate(-12deg);
+		position: absolute;
+		transform: rotate(-9deg);
+	}
+
+	.flex-spacing {
+		width: $menu-padding;
 	}
 
 	.menu {
@@ -47,10 +45,12 @@ $menu-padding: 12px;
 	}
 
 	.background-container {
-		background-image: url("../../../assets/sassy-squad-bg.png");
+		background-image: url("../../../assets/slides/L_01.jpg");
 		background-repeat: no-repeat;
 		background-size: cover;
+		position: relative;
 		color: $text-color;
+		z-index: -2;
 	}
 
 	.command-bar {
@@ -74,40 +74,10 @@ $menu-padding: 12px;
 	}
 
 	.fx-button {
-		width: 140px;
-		height: 44px;
-		border-width: 0px;
-		border-image-slice: 0 fill;
-		color: $text-color;
-		background-color: transparent;
-		font-size: 1.4em;
 		text-align: center;
-		transition: 0.3s;
-		position: relative;
-
-		&-green {
-			border-image-source: url("./../../../assets/ui-button-green.png");
-
-			&:hover {
-				border-image-source: url("./../../../assets/ui-button-green-active.png");
-			}
-		}
-
-		&-yellow {
-			border-image-source: url("./../../../assets/ui-button-yellow.png");
-
-			&:hover {
-				border-image-source: url("./../../../assets/ui-button-yellow-active.png");
-			}
-		}
-
-		&-blue {
-			border-image-source: url("./../../../assets/ui-button-blue.png");
-
-			&:hover {
-				border-image-source: url("./../../../assets/ui-button-blue-active.png");
-			}
-		}
+		padding: 10px 40px;
+		font-size: 1.4em !important;
+		border-radius: 0 !important;
 	}
 
 	.update-bar {

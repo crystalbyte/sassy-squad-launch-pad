@@ -1,6 +1,8 @@
 import * as AdmZip from 'adm-zip';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
+import * as path from 'path';
+import { remote } from 'electron';
 import { Task } from './task';
 import { LogService } from '../diagnostics/log.service';
 import { ReleaseTrigger } from '../events/release-triggers';
@@ -23,8 +25,9 @@ export class InstallTask extends Task {
 			mode: 'indeterminate'
 		});
 
-		const installPath = environment.installationPath;
-		const downloadPath = environment.downloadPath;
+		const appPath = remote.app.getAppPath();
+		const installPath = path.join(appPath, environment.installationPath);
+		const downloadPath = path.join(appPath, environment.downloadPath);
 
 		const cleanUpTrigger = new ReleaseTrigger();
 		if (fs.existsSync(downloadPath)) {
@@ -40,7 +43,7 @@ export class InstallTask extends Task {
 		const reader = new FileReader();
 		reader.onloadend = _ => {
 			const buffer: ArrayBuffer = <ArrayBuffer>reader.result;
-			const zip = new AdmZip(new Buffer(buffer));
+			const zip = new AdmZip(Buffer.from(buffer));
 			zip.extractAllToAsync(downloadPath, true, e => {
 				if (e) {
 					this.logService.error(e);

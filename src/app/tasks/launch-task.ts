@@ -28,7 +28,7 @@ export class LaunchTask extends Task {
 
 		let launchError: any = undefined;
 		process.execFile(p, {
-			cwd: environment.installationPath,
+			cwd: path.join(appPath, environment.installationPath),
 		}, e => {
 			launchError = e;
 			trigger.release();

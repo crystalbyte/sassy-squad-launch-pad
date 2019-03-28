@@ -7,7 +7,20 @@ body {
 	margin: 0;
 	overflow-x: hidden;
 	overflow-y: hidden;
+	font-family: "Twenty Century", "Arial", sans-serif;
 	-webkit-text-size-adjust: 100%;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.text-align-right {
+	text-align: right;
+}
+
+.font-size-larger {
+	font-size: 1.2em;
 }
 
 :not(input):not(textarea),

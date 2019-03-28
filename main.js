@@ -9,10 +9,10 @@ serve = args.some(function (val) { return val === '--serve'; });
 function createWindow() {
     // Create the browser window.
     win = new electron_1.BrowserWindow({
-        width: 1012,
+        width: 1010,
         resizable: false,
         transparent: true,
-        height: 648,
+        height: 716,
         frame: false,
         icon: path.join(__dirname, 'assets/icon.png'),
         webPreferences: {

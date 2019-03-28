@@ -14,6 +14,10 @@ export class VersionCheckTask extends Task {
 	}
 
 	public async run(): Promise<void> {
+		if (!navigator.onLine) {
+			throw new Error("Launcher offline. Unable to connect to the Sassy Squad Services!");
+		}
+
 		this.reportProgress({
 			action: 'Checking game version ...',
 			mode: 'indeterminate'
