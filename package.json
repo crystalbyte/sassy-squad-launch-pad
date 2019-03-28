@@ -1,7 +1,7 @@
 {
-	"name": "launch-pad",
+	"name": "sassy-squad-launcher",
 	"version": "1.0.0",
-	"description": "Angular 7 with Electron Game Updater",
+	"description": "A launcher and updater for Sassy Squad",
 	"author": {
 		"name": "Alexander Wieser",
 		"email": "alexander.wieser@happy-tuesday.com"

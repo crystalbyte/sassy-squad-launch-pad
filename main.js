@@ -7,17 +7,14 @@ var win, serve;
 var args = process.argv.slice(1);
 serve = args.some(function (val) { return val === '--serve'; });
 function createWindow() {
-    var electronScreen = electron_1.screen;
-    var size = electronScreen.getPrimaryDisplay().workAreaSize;
     // Create the browser window.
     win = new electron_1.BrowserWindow({
-        width: 1180,
+        width: 1012,
         resizable: false,
         transparent: true,
-        backgroundColor: "#00000000",
-        height: 680,
+        height: 648,
         frame: false,
-        icon: path.join(__dirname, "assets/icon.png"),
+        icon: path.join(__dirname, 'assets/icon.png'),
         webPreferences: {
             nodeIntegration: true,
         },

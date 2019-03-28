@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -8,16 +8,12 @@ serve = args.some(val => val === '--serve');
 
 function createWindow() {
 
-	const electronScreen = screen;
-	const size = electronScreen.getPrimaryDisplay().workAreaSize;
-
 	// Create the browser window.
 	win = new BrowserWindow({
-		width: 1180,
+		width: 1012,
 		resizable: false,
 		transparent: true,
-		backgroundColor: '#00000000',
-		height: 680,
+		height: 648,
 		frame: false,
 		icon: path.join(__dirname, 'assets/icon.png'),
 		webPreferences: {

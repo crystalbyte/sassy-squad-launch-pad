@@ -10,6 +10,12 @@ $text-color: mat-color($foreground, text);
 $progress-bar-height: 18px;
 $menu-padding: 12px;
 
+@mixin make-cover() {
+	border-width: inherit;
+	border-image-slice: inherit;
+	opacity: 0;
+}
+
 :host {
 	.logo {
 		position: absolute;
@@ -72,10 +78,12 @@ $menu-padding: 12px;
 		height: 44px;
 		border-width: 0px;
 		border-image-slice: 0 fill;
-		background-color: transparent;
 		color: $text-color;
+		background-color: transparent;
 		font-size: 1.4em;
 		text-align: center;
+		transition: 0.3s;
+		position: relative;
 
 		&-green {
 			border-image-source: url("./../../../assets/ui-button-green.png");
