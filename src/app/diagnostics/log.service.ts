@@ -1,4 +1,6 @@
 import * as winston from 'winston';
+import * as path from 'path';
+import { remote } from 'electron';
 import { Logger } from 'winston';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
@@ -15,6 +17,7 @@ export class LogService {
 		this.errorSubject = new ReplaySubject<Error>(1);
 		this.errorSubject.next(undefined);
 
+		let appPath = remote.app.getAppPath();
 		this.logger = winston.createLogger({
 			level: 'info',
 			format: winston.format.json(),
@@ -24,8 +27,8 @@ export class LogService {
 				// - Write to all logs with level `info` and below to `combined.log`
 				// - Write all logs error (and below) to `error.log`.
 				//
-				new winston.transports.File({ filename: 'error.log', level: 'error' }),
-				new winston.transports.File({ filename: 'combined.log' })
+				new winston.transports.File({ filename: path.join(appPath, 'error.log'), level: 'error' }),
+				new winston.transports.File({ filename: path.join(appPath, 'combined.log') })
 			]
 		});
 

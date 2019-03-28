@@ -9,7 +9,7 @@ import { AppService } from '../app.service';
 
 export class DownloadTask extends Task {
 
-	private action = 'Downloading Game ...';
+	private action = 'Downloading client ...';
 
 	constructor(
 		private http: HttpClient,
@@ -20,7 +20,7 @@ export class DownloadTask extends Task {
 	}
 
 	public async run(): Promise<void> {
-		console.log('Download started ...');
+		this.logService.info("Client download started ...");
 
 		this.reportProgress({
 			action: `${this.action}`,
@@ -44,12 +44,12 @@ export class DownloadTask extends Task {
 				catchError(x => this.onErrorOccurred(x)))
 			.toPromise();
 
-		console.log('Client download finished.');
-
 		this.taskService.enqueue(new InstallTask(
 			response.body,
 			this.logService,
 			this.appService));
+
+			this.logService.info("Client download completed.");
 	}
 
 	private onErrorOccurred(error: any): any {
@@ -57,8 +57,6 @@ export class DownloadTask extends Task {
 	}
 
 	private onRequestEventTriggered(event: any): any {
-		console.log(event);
-
 		if (event.type === HttpEventType.Response) {
 			return event;
 		}

@@ -20,8 +20,11 @@ export class InstallTask extends Task {
 	}
 
 	public async run(): Promise<void> {
+
+		this.logService.info("Installing client ...");
+
 		this.reportProgress({
-			action: 'Installing ...',
+			action: 'Installing client ...',
 			mode: 'indeterminate'
 		});
 
@@ -31,7 +34,9 @@ export class InstallTask extends Task {
 
 		const cleanUpTrigger = new ReleaseTrigger();
 		if (fs.existsSync(downloadPath)) {
+			this.logService.info("Removing previous installation ...");
 			rimraf(downloadPath, () => {
+				this.logService.info("Installation removal completed.");
 				cleanUpTrigger.release();
 			});
 
@@ -44,12 +49,14 @@ export class InstallTask extends Task {
 		reader.onloadend = _ => {
 			const buffer: ArrayBuffer = <ArrayBuffer>reader.result;
 			const zip = new AdmZip(Buffer.from(buffer));
+			this.logService.info("Extracting data files ...");
 			zip.extractAllToAsync(downloadPath, true, e => {
 				if (e) {
 					this.logService.error(e);
 					return;
 				}
 
+				this.logService.info("File extraction completed.");
 				unzipTrigger.release();
 			});
 		};
@@ -77,5 +84,6 @@ export class InstallTask extends Task {
 		});
 
 		this.appService.state = AppState.Ready;
+		this.logService.info("Client installation completed.");
 	}
 }

@@ -1,50 +1,53 @@
-<div class="flex flex-direction-column menu" *ngIf="!(busyChanges | async)">
-	<div class="flex flex-direction-row menu-row text-align-right" [ngSwitch]="stateChanges | async">
-		<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="0">
-			<span class="mat-body-strong block"
-				i18n="Game ready title|Short title stating the game is ready to be played@@game-ready-title">Everything
-				is up to date!</span>
-			<span class="mat-caption"
-				i18n="Game ready description|Short title stating the game is ready to be played@@game-ready-description">Good
-				news! You can now embark on the quest for Amber's ass and many other adventures.</span>
-		</div>
-		<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="1">
-			<span class="mat-body-strong block"
-				i18n="Update available title|Short sentence prompting the user that an update is available@@update-available-title">
-				A new update is available!</span>
-			<span class="mat-caption"
-				i18n="Update available description|Short sentence prompting he user to update the game client@@update-available-description">
-				Press the update button to download and install the latest version.</span>
-		</div>
-		<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="2">
-			<span class="mat-body-strong block" i18n="Installation required title|@@game-install-title">No installed
-				version found!</span>
-			<span class="mat-caption" i18n="@@game-install-description">Press the install button to download and install
-				the latest version.</span>
-		</div>
-		<div class="flex-spacing"></div>
-		<div class="flex" *ngSwitchCase="0">
-			<button (click)="play($event)" mat-flat-button color="primary" class="fx-button">
-				<span i18n="Launch game|A single word describing the game launch@@play">Launch</span>
-			</button>
-		</div>
-		<div class="flex" *ngSwitchCase="1">
-			<button (click)="update($event)" mat-flat-button color="accent" class="fx-button">
-				<span i18n="Update game|A single word describing a client update@@update">Update</span>
-			</button>
-		</div>
-		<div class="flex" *ngSwitchCase="2">
-			<button (click)="update($event)" mat-flat-button color="accent" class="fx-button">
-				<span i18n="Install update|A single word describing a client installation@@install">Install</span>
-			</button>
-		</div>
-	</div>
-</div>
-<div class="fullscreen flex flex-direction-column background-container">
+<div class="fullscreen flex flex-direction-column background-container" #background>
 	<div class="flex-stretch flex flex-direction-column fullscreen-padding">
-		<div class="flex-stretch"></div>
-		<div class="mat-body" style="z-index: 1000;" *ngIf="!(errors | async)">
-			<span>{{messages | async}}</span>
+		<div class="flex-stretch" style="pointer-events: none;"></div>
+		<div class="flex flex-direction-column menu" *ngIf="!(busyChanges | async)">
+			<div class="flex flex-direction-row menu-row text-align-right" [ngSwitch]="stateChanges | async">
+				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="0">
+					<span class="mat-body-strong block"
+						i18n="Game ready title|Short title stating the game is ready to be played@@game-ready-title">Everything
+						is up to date!</span>
+					<span class="mat-caption"
+						i18n="Game ready description|Short title stating the game is ready to be played@@game-ready-description">Good
+						news! You can now embark on the quest for Amber's ass and many other adventures.</span>
+				</div>
+				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="1">
+					<span class="mat-body-strong block"
+						i18n="Update available title|Short sentence prompting the user that an update is available@@update-available-title">
+						A new update is available!</span>
+					<span class="mat-caption"
+						i18n="Update available description|Short sentence prompting he user to update the game client@@update-available-description">
+						Press the update button to download and install the latest version.</span>
+				</div>
+				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="2">
+					<span class="mat-body-strong block" i18n="Installation required title|@@game-install-title">No
+						installed
+						version found!</span>
+					<span class="mat-caption" i18n="@@game-install-description">Press the install button to download and
+						install
+						the latest version.</span>
+				</div>
+				<div class="flex-spacing"></div>
+				<div class="flex" *ngSwitchCase="0">
+					<button (click)="play($event)" mat-flat-button color="primary" class="fx-button">
+						<span i18n="Launch game|A single word describing the game launch@@play">Launch</span>
+					</button>
+				</div>
+				<div class="flex" *ngSwitchCase="1">
+					<button (click)="update($event)" mat-flat-button color="accent" class="fx-button">
+						<span i18n="Update game|A single word describing a client update@@update">Update</span>
+					</button>
+				</div>
+				<div class="flex" *ngSwitchCase="2">
+					<button (click)="update($event)" mat-flat-button color="accent" class="fx-button">
+						<span
+							i18n="Install update|A single word describing a client installation@@install">Install</span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="mat-body message-container" *ngIf="!(errors | async) && (messages | async)">
+			<span class="mat-caption">{{messages | async}}</span>
 		</div>
 	</div>
 	<mat-progress-bar class="update-bar" [mode]="modes | async" color="accent" [value]="values | async">

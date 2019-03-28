@@ -10,6 +10,14 @@ $text-color: mat-color($foreground, text);
 $progress-bar-height: 18px;
 $menu-padding: 12px;
 
+@mixin stick-to-bottom() {
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	position: absolute;
+}
+
 :host {
 	.logo {
 		left: -54px;
@@ -24,12 +32,15 @@ $menu-padding: 12px;
 		width: $menu-padding;
 	}
 
+	.message-container {
+		@include stick-to-bottom();
+		background-color: fade-out($color: #000000, $amount: 0.4);
+		padding: $menu-padding $menu-padding $menu-padding + $progress-bar-height $menu-padding;
+		color: $text-color;
+	}
+
 	.menu {
-		left: 0;
-		right: 0;
-		bottom: 0;
-		display: flex;
-		position: absolute;
+		@include stick-to-bottom();
 		background-color: fade-out($color: #000000, $amount: 0.4);
 		padding: $menu-padding $menu-padding $menu-padding + $progress-bar-height $menu-padding;
 		color: $text-color;
@@ -50,7 +61,7 @@ $menu-padding: 12px;
 		background-size: cover;
 		position: relative;
 		color: $text-color;
-		z-index: -2;
+		transition: background-image 1s ease-in-out;
 	}
 
 	.command-bar {

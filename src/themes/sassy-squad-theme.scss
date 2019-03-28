@@ -3,9 +3,9 @@
 
 $general-typography: mat-typography-config(
 	$font-family: "Twenty Century",
-	$body-1: mat-typography-level(18px, 24px, 500),
-	$body-2: mat-typography-level(18px, 24px, 700),
-	$caption: mat-typography-level(14px, 18px, 500)
+	$body-1: mat-typography-level(20px, 24px, 500),
+	$body-2: mat-typography-level(20px, 24px, 700),
+	$caption: mat-typography-level(16px, 20px, 500)
 );
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -16,7 +16,7 @@ $general-typography: mat-typography-config(
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$sassy-squad-primary: mat-palette($mat-blue-grey);
+$sassy-squad-primary: mat-palette($mat-teal, A200, A100, A400);
 $sassy-squad-accent: mat-palette($mat-pink);
 
 // The warn palette is optional (defaults to red).

@@ -38,7 +38,8 @@ export class AppService {
 				new VersionCheckTask(
 					this,
 					this.updateService,
-					this.clientService));
+					this.clientService,
+					this.logService));
 
 			await this.taskService.process();
 		} catch (e) {

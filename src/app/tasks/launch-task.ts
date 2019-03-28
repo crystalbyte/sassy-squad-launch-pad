@@ -5,14 +5,18 @@ import { Task } from './task';
 import { environment } from '../../environments/environment';
 import { ReleaseTrigger } from '../events/release-triggers';
 import { remote } from 'electron';
+import { LogService } from '../diagnostics/log.service';
 
 export class LaunchTask extends Task {
 
-	constructor() {
+	constructor(private logService: LogService) {
 		super();
 	}
 
 	public async run(): Promise<void> {
+		const appPath = remote.app.getAppPath();
+		const p = path.join(appPath, environment.installationPath, environment.executable);
+		this.logService.info(`Launching client at path ${p}.`);
 
 		this.reportProgress({
 			action: 'Launching ...',
@@ -20,8 +24,7 @@ export class LaunchTask extends Task {
 		});
 
 		const trigger = new ReleaseTrigger();
-		const appPath = remote.app.getAppPath();
-		const p = path.join(appPath, environment.installationPath, environment.executable);
+		
 		if (!fs.existsSync(p)) {
 			throw new Error('Unable to launch the game. Executable not found!');
 		}
@@ -46,5 +49,7 @@ export class LaunchTask extends Task {
 			actual: 1,
 			total: 1
 		});
+
+		this.logService.info(`Client launch completed.`);
 	}
 }

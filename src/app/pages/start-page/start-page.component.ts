@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { remote } from 'electron';
 import { TaskService } from '../../tasks/task.service';
 import { DisposableComponent } from '../../components/disposable-component';
 import { environment } from '../../../environments/environment';
 import { AppService } from '../../app.service';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { map, switchMap, takeUntil, filter } from 'rxjs/operators';
 import { LaunchTask } from '../../tasks/launch-task';
 import { DownloadTask } from '../../tasks/download-task';
@@ -16,7 +16,18 @@ import { LogService } from '../../diagnostics/log.service';
 	templateUrl: './start-page.component.html',
 	styleUrls: ['./start-page.component.scss']
 })
-export class StartPageComponent extends DisposableComponent implements OnInit {
+export class StartPageComponent extends DisposableComponent implements OnInit, AfterViewInit {
+
+	private slides = [
+		"assets/slides/L_02.jpg",
+		"assets/slides/L_03.jpg",
+		"assets/slides/L_04.jpg",
+		"assets/slides/L_05.jpg",
+		"assets/slides/L_06.jpg",
+		"assets/slides/L_07.jpg",
+		"assets/slides/L_08.jpg",
+		"assets/slides/L_09.jpg"
+	];
 
 	constructor(
 		public taskService: TaskService,
@@ -33,6 +44,16 @@ export class StartPageComponent extends DisposableComponent implements OnInit {
 	public stateChanges: Observable<string>;
 	public busyChanges: Observable<boolean>;
 	public errors: Observable<Error>;
+
+	@ViewChild("background")
+	public background: ElementRef;
+
+	public ngAfterViewInit(): void {
+		interval(15000)
+			.pipe(takeUntil(this.trigger.releases))
+			.subscribe(x => this.onTimerElapsed(x));
+	}
+
 
 	public ngOnInit() {
 		this.prod = environment.production;
@@ -87,7 +108,7 @@ export class StartPageComponent extends DisposableComponent implements OnInit {
 	public play(_: Event) {
 		this.logService.clearStoredErrors();
 		this.taskService.reset();
-		this.taskService.enqueue(new LaunchTask());
+		this.taskService.enqueue(new LaunchTask(this.logService));
 
 		this.taskService.process();
 	}
@@ -99,5 +120,15 @@ export class StartPageComponent extends DisposableComponent implements OnInit {
 
 	public refresh(_: Event) {
 		this.appService.run();
+	}
+
+	private onTimerElapsed(_: number) {
+		this.changeSliderImage();
+	}
+
+	private changeSliderImage(): any {
+		var e = this.slides[Math.floor(Math.random() * this.slides.length)];
+		var div = <HTMLDivElement>this.background.nativeElement;
+		div.style.backgroundImage = `url("${e}")`;
 	}
 }

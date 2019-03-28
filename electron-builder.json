@@ -1,5 +1,6 @@
 {
-  "productName": "angular-electron",
+  "productName": "Sassy Squad Launcher",
+  "buildVersion": "1.0.0.0",
   "directories": {
     "output": "release/"
   },
@@ -20,19 +21,16 @@
         "!tslint.json"
     ],
   "win": {
-    "icon": "dist",
-    "target": [
-      "portable"
-    ]
+	"icon": "src/assets/icon.png"
   },
   "mac": {
-    "icon": "dist",
+    "icon": "src/assets/icon.png",
     "target": [
       "dmg"
     ]
   },
   "linux": {
-    "icon": "dist",
+    "icon": "src/assets/icon.png",
     "target": [
       "AppImage"
     ]
