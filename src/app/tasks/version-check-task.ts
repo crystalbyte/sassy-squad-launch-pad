@@ -1,4 +1,5 @@
 import { Task } from './task';
+import { remote } from 'electron';
 import { UpdateService } from '../updates/update.service';
 import { ClientService } from '../updates/client.service';
 import { AppService } from '../app.service';
@@ -28,15 +29,28 @@ export class VersionCheckTask extends Task {
 			mode: 'indeterminate'
 		});
 
-		const local = await this.clientService.getClientInfo();
-		const remote = await this.updateService.getVersion();
+		const localInfo = await this.clientService.getClientInfo();
+		const remoteInfo = await this.updateService.getVersion();
 
-		if (local.version === 'none') {
+		if (remoteInfo.launcherVersion != remote.app.getVersion()) {
+			this.logService.info("Launcher is out of date!");
+			this.appService.state = AppState.LauncherUpdateRequired;
+			return;
+		}
+
+		if (localInfo.version === 'none') {
+			this.logService.info("Game client not found!");
 			this.appService.state = AppState.InstallationRequired;
 		} else {
-			this.appService.state = local.version === remote.version
+			this.appService.state = localInfo.version === remoteInfo.version
 				? AppState.Ready
 				: AppState.UpdateRequired;
+
+			if (this.appService.state == AppState.Ready) {
+				this.logService.info("Game client is up to date.");
+			} else {
+				this.logService.info("Game client is out of date.");
+			}
 		}
 
 		this.reportProgress({
@@ -45,7 +59,5 @@ export class VersionCheckTask extends Task {
 			actual: 1,
 			total: 1
 		});
-
-		this.logService.info("Client version check completed.")
 	}
 }

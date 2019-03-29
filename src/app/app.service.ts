@@ -33,6 +33,8 @@ export class AppService {
 
 	public async run() {
 		try {
+			this.logService.info("App started.");
+
 			this.taskService.reset();
 			this.taskService.enqueue(
 				new VersionCheckTask(

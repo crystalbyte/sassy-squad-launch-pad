@@ -13,19 +13,28 @@
 				</div>
 				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="1">
 					<span class="mat-body-strong block"
-						i18n="Update available title|Short sentence prompting the user that an update is available@@update-available-title">
+						i18n="Update available|Short sentence prompting the user that an update is available@@update-available-title">
 						A new update is available!</span>
 					<span class="mat-caption"
-						i18n="Update available description|Short sentence prompting he user to update the game client@@update-available-description">
+						i18n="Update available|Short sentence prompting he user to update the game client@@update-available-description">
 						Press the update button to download and install the latest version.</span>
 				</div>
 				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="2">
-					<span class="mat-body-strong block" i18n="Installation required title|@@game-install-title">No
-						installed
-						version found!</span>
-					<span class="mat-caption" i18n="@@game-install-description">Press the install button to download and
-						install
-						the latest version.</span>
+					<span class="mat-body-strong block"
+						i18n="Installation required|Brief title denoting a required installation@@game-install-title">Game
+						client not found!</span>
+					<span class="mat-caption"
+						i18n="Installation required|Brief description denoting a required installation@@game-install-description">Press
+						the install button to download and
+						install the latest version.</span>
+				</div>
+				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="3">
+					<span class="mat-body-strong block"
+						i18n="Launcher update|A brief title denoting a new launcher update@@update-launcher-title">The
+						launcher requires an update!</span>
+					<span class="mat-caption"
+						i18n="Launcher update|A brief description denoting a new launcher update@@update-launcher-description">
+						Hit the store button to be redirected to the Sassy Squad store page.</span>
 				</div>
 				<div class="flex-spacing"></div>
 				<div class="flex" *ngSwitchCase="0">
@@ -44,9 +53,16 @@
 							i18n="Install update|A single word describing a client installation@@install">Install</span>
 					</button>
 				</div>
+				<div class="flex" *ngSwitchCase="3">
+					<button (click)="redirect($event)" mat-flat-button color="accent" class="fx-button">
+						<span
+							i18n="Launcher download|A single word denoting a redirect to the Nutaku game page@@Nutaku">Store</span>
+					</button>
+				</div>
 			</div>
 		</div>
-		<div class="mat-body message-container" *ngIf="!(errors | async) && (messages | async)">
+		<div class="mat-body message-container"
+			*ngIf="!(errors | async) && (messages | async) && (busyChanges | async)">
 			<span class="mat-caption">{{messages | async}}</span>
 		</div>
 	</div>
@@ -64,4 +80,3 @@
 		<i class="material-icons md-32">close</i>
 	</button>
 </div>
-<img src="assets/logo.png" class="logo">

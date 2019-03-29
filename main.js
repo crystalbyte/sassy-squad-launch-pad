@@ -3,17 +3,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var path = require("path");
 var url = require("url");
+var environment_1 = require("./src/environments/environment");
 var win, serve;
 var args = process.argv.slice(1);
 serve = args.some(function (val) { return val === '--serve'; });
 function createWindow() {
     // Create the browser window.
     win = new electron_1.BrowserWindow({
+        frame: false,
         width: 1010,
+        height: 716,
         resizable: false,
         transparent: true,
-        height: 716,
-        frame: false,
+        title: environment_1.environment.productName,
         icon: path.join(__dirname, 'assets/icon.png'),
         webPreferences: {
             nodeIntegration: true,

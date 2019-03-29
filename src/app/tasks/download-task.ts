@@ -20,7 +20,7 @@ export class DownloadTask extends Task {
 	}
 
 	public async run(): Promise<void> {
-		this.logService.info("Client download started ...");
+		this.logService.info("Downloading client ...");
 
 		this.reportProgress({
 			action: `${this.action}`,
@@ -49,7 +49,7 @@ export class DownloadTask extends Task {
 			this.logService,
 			this.appService));
 
-			this.logService.info("Client download completed.");
+			this.logService.info("Client download successfully completed.");
 	}
 
 	private onErrorOccurred(error: any): any {

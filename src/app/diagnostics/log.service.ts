@@ -27,8 +27,15 @@ export class LogService {
 				// - Write to all logs with level `info` and below to `combined.log`
 				// - Write all logs error (and below) to `error.log`.
 				//
-				new winston.transports.File({ filename: path.join(appPath, 'error.log'), level: 'error' }),
-				new winston.transports.File({ filename: path.join(appPath, 'combined.log') })
+				new winston.transports.File({
+					filename: path.join(appPath, 'error.log'),
+					format: winston.format.timestamp(),
+					level: 'error'
+				}),
+				new winston.transports.File({
+					filename: path.join(appPath, 'combined.log'),
+					format: winston.format.timestamp()
+				})
 			]
 		});
 
@@ -38,9 +45,19 @@ export class LogService {
 		//
 		if (process.env.NODE_ENV !== 'production') {
 			this.logger.add(new winston.transports.Console({
-				format: winston.format.simple()
+				format: winston.format.combine(
+					winston.format.timestamp(),
+					winston.format.colorize(),
+					winston.format.prettyPrint()
+				)
 			}));
 		}
+
+		this.info(`Logger initialized at '${appPath}'.`);
+	}
+
+	public set level(level: "info" | "debug" | "error") {
+		this.logger.level = level;
 	}
 
 	public clearStoredErrors() {

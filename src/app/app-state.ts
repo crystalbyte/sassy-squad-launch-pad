@@ -1,5 +1,6 @@
 export enum AppState {
 	Ready = 0,
 	UpdateRequired = 1,
-	InstallationRequired = 2
+	InstallationRequired = 2,
+	LauncherUpdateRequired = 3
 }

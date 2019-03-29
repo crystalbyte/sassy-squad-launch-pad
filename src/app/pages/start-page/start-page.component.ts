@@ -1,3 +1,4 @@
+import * as opn from 'opn';
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { remote } from 'electron';
 import { TaskService } from '../../tasks/task.service';
@@ -44,6 +45,7 @@ export class StartPageComponent extends DisposableComponent implements OnInit, A
 	public stateChanges: Observable<string>;
 	public busyChanges: Observable<boolean>;
 	public errors: Observable<Error>;
+	public nutakuStoreRedirect: string;
 
 	@ViewChild("background")
 	public background: ElementRef;
@@ -54,9 +56,9 @@ export class StartPageComponent extends DisposableComponent implements OnInit, A
 			.subscribe(x => this.onTimerElapsed(x));
 	}
 
-
 	public ngOnInit() {
 		this.prod = environment.production;
+		this.nutakuStoreRedirect = environment.nutakuGameStoreUrl;
 
 		this.errors = this.logService.errors;
 		this.busyChanges = this.taskService.busyChanges;
@@ -93,6 +95,10 @@ export class StartPageComponent extends DisposableComponent implements OnInit, A
 		this.logService.error(new Error('test'));
 	}
 
+	public redirect(_: Event) {
+		opn(environment.nutakuGameStoreUrl);
+	}
+
 	public update(_: Event) {
 		this.logService.clearStoredErrors();
 		this.taskService.reset();
@@ -127,8 +133,8 @@ export class StartPageComponent extends DisposableComponent implements OnInit, A
 	}
 
 	private changeSliderImage(): any {
-		var e = this.slides[Math.floor(Math.random() * this.slides.length)];
-		var div = <HTMLDivElement>this.background.nativeElement;
+		let e = this.slides[Math.floor(Math.random() * this.slides.length)];
+		let div = <HTMLDivElement>this.background.nativeElement;
 		div.style.backgroundImage = `url("${e}")`;
 	}
 }

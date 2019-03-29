@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { VersionModel } from './version.model';
-import { ClientInfoModel } from './client-info.model';
 import { HttpClient } from '@angular/common/http';
-import * as fs from 'fs';
+import { remote } from 'electron';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,6 +15,11 @@ export class UpdateService {
 		const response = await this.http.get<VersionModel>(environment.versionCheckUrl, {
 			responseType: 'json'
 		}).toPromise();
+
+		if (!response.launcherVersion) {
+			// Let's inject the current version in case the server is not yet setup
+			response.launcherVersion = remote.app.getVersion()
+		}
 
 		return response;
 	}

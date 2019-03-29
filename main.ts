@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import { environment } from './src/environments/environment';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -10,11 +11,12 @@ function createWindow() {
 
 	// Create the browser window.
 	win = new BrowserWindow({
+		frame: false,
 		width: 1010,
+		height: 716,
 		resizable: false,
 		transparent: true,
-		height: 716,
-		frame: false,
+		title: environment.productName,
 		icon: path.join(__dirname, 'assets/icon.png'),
 		webPreferences: {
 			nodeIntegration: true,

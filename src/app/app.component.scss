@@ -4,8 +4,10 @@
 $foreground: map-get($active-theme, foreground);
 $warn: map-get($active-theme, warn);
 $accent: map-get($active-theme, accent);
+$primary: map-get($active-theme, primary);
 
 $accent-color: mat-color($accent);
+$primary-color: mat-color($primary);
 $text-color: mat-color($foreground, text);
 $warn-color: mat-color($warn, text);
 
@@ -14,6 +16,14 @@ $warn-color: mat-color($warn, text);
 }
 
 :host {
+	.logo {
+		left: -54px;
+		top: -108px;
+		width: 300px;
+		height: auto;
+		position: absolute;
+		transform: rotate(-9deg);
+	}
 
 	.title-bar {
 		top: 0;
@@ -45,7 +55,7 @@ $warn-color: mat-color($warn, text);
 			padding: 18px;
 			background-color: fade-out($color: #000000, $amount: 0.2);
 
-			@include strip-border(1px, $accent-color);
+			@include strip-border(1px, $warn-color);
 
 			&-column {
 				width: 60%;

@@ -28,7 +28,5 @@ import { StartPageComponent } from './pages/start-page/start-page.component';
 	bootstrap: [AppComponent]
 })
 export class AppModule {
-	constructor() {
-		console.log('App Started.');
-	}
+	constructor() { }
 }

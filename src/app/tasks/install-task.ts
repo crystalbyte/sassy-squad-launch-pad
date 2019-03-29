@@ -21,7 +21,7 @@ export class InstallTask extends Task {
 
 	public async run(): Promise<void> {
 
-		this.logService.info("Installing client ...");
+		this.logService.info("Downloading game client ...");
 
 		this.reportProgress({
 			action: 'Installing client ...',
@@ -34,9 +34,9 @@ export class InstallTask extends Task {
 
 		const cleanUpTrigger = new ReleaseTrigger();
 		if (fs.existsSync(downloadPath)) {
-			this.logService.info("Removing previous installation ...");
+			this.logService.info("Removing current game client ...");
 			rimraf(downloadPath, () => {
-				this.logService.info("Installation removal completed.");
+				this.logService.info("Game client successfully removed.");
 				cleanUpTrigger.release();
 			});
 
@@ -49,14 +49,15 @@ export class InstallTask extends Task {
 		reader.onloadend = _ => {
 			const buffer: ArrayBuffer = <ArrayBuffer>reader.result;
 			const zip = new AdmZip(Buffer.from(buffer));
-			this.logService.info("Extracting data files ...");
+			this.logService.info("Decompressing files ...");
 			zip.extractAllToAsync(downloadPath, true, e => {
+				this.logService.info("File decompression successfully completed.");
+
 				if (e) {
 					this.logService.error(e);
 					return;
 				}
-
-				this.logService.info("File extraction completed.");
+				
 				unzipTrigger.release();
 			});
 		};
