@@ -1,4 +1,6 @@
 export interface VersionModel {
-	version: string;
-	launcherVersion: string;
+	data: {
+		version: string;
+		launcherVersion: string;
+	}
 }

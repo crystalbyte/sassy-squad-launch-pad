@@ -38,7 +38,7 @@
 				</div>
 				<div class="flex-spacing"></div>
 				<div class="flex" *ngSwitchCase="0">
-					<button (click)="play($event)" mat-flat-button color="primary" class="fx-button">
+					<button (click)="play($event)" mat-flat-button color="primary" class="fx-button" [disabled]="clientRunChanges | async">
 						<span i18n="Launch game|A single word describing the game launch@@play">Launch</span>
 					</button>
 				</div>
@@ -70,6 +70,9 @@
 	</mat-progress-bar>
 </div>
 <div class="flex flex-direction-row command-bar">
+	<button (click)="toggleDebugInfo($event)" class="command-button" *ngIf="!prod">
+		<i class="material-icons md-32">assessment</i>
+	</button>
 	<button (click)="error($event)" class="command-button" *ngIf="!prod">
 		<i class="material-icons md-32">error</i>
 	</button>

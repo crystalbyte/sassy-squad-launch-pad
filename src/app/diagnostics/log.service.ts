@@ -56,8 +56,12 @@ export class LogService {
 		this.info(`Logger initialized at '${appPath}'.`);
 	}
 
-	public set level(level: "info" | "debug" | "error") {
+	public set level(level: string) {
 		this.logger.level = level;
+	}
+
+	public get level(): string {
+		return this.logger.level;
 	}
 
 	public clearStoredErrors() {

@@ -1,21 +1,26 @@
-import * as process from 'child_process';
+import * as childProcess from 'child_process';
 import * as path from 'path';
 import * as fs from 'fs';
 import { Task } from './task';
 import { environment } from '../../environments/environment';
-import { ReleaseTrigger } from '../events/release-triggers';
 import { remote } from 'electron';
 import { LogService } from '../diagnostics/log.service';
+import { AppService } from '../app.service';
 
 export class LaunchTask extends Task {
 
-	constructor(private logService: LogService) {
+	constructor(
+		private logService: LogService,
+		private appService: AppService) {
 		super();
 	}
 
 	public async run(): Promise<void> {
-		const appPath = remote.app.getAppPath();
-		const p = path.join(appPath, environment.installationPath, environment.executable);
+		const execPath = environment.production
+			? process.env.PORTABLE_EXECUTABLE_DIR
+			: remote.app.getAppPath();
+
+		const p = path.join(execPath, environment.installationPath, environment.executable);
 		this.logService.info(`Launching client at path ${p}.`);
 
 		this.reportProgress({
@@ -23,25 +28,22 @@ export class LaunchTask extends Task {
 			mode: 'indeterminate',
 		});
 
-		const trigger = new ReleaseTrigger();
-		
+
 		if (!fs.existsSync(p)) {
 			throw new Error('Unable to launch the game. Executable not found!');
 		}
 
-		let launchError: any = undefined;
-		process.execFile(p, {
-			cwd: path.join(appPath, environment.installationPath),
-		}, e => {
-			launchError = e;
-			trigger.release();
+		this.appService.isClientRunning = true;
+		var child = childProcess.spawn(p, [], {
+			detached: true,
+			cwd: path.join(execPath, environment.installationPath),
 		});
 
-		await trigger.releases.toPromise();
-
-		if (launchError) {
-			throw new Error(`Unable to launch the game. ${launchError}`);
-		}
+		child.unref();
+		child.on("close", () => {
+			this.appService.isClientRunning = false;
+			this.appService.run();
+		});
 
 		this.reportProgress({
 			action: '',

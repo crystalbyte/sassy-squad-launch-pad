@@ -4,7 +4,7 @@ import { UpdateService } from './updates/update.service';
 import { ClientService } from './updates/client.service';
 import { VersionCheckTask } from './tasks/version-check-task';
 import { LogService } from './diagnostics/log.service';
-import { ReplaySubject, Observable } from 'rxjs';
+import { ReplaySubject, Observable, interval } from 'rxjs';
 import { AppState } from './app-state';
 
 @Injectable({
@@ -13,6 +13,7 @@ import { AppState } from './app-state';
 export class AppService {
 
 	private stateChangeSubject: ReplaySubject<AppState>;
+	private clientRunChangeSubject: ReplaySubject<boolean>;
 
 	constructor(
 		private taskService: TaskService,
@@ -21,14 +22,23 @@ export class AppService {
 		private logService: LogService) {
 
 		this.stateChangeSubject = new ReplaySubject<AppState>(1);
+		this.clientRunChangeSubject = new ReplaySubject<boolean>(1);
 	}
 
 	public get stateChanges(): Observable<AppState> {
 		return this.stateChangeSubject.asObservable();
 	}
 
+	public get clientRunChanges(): Observable<boolean> {
+		return this.clientRunChangeSubject.asObservable();
+	}
+
 	public set state(value: AppState) {
 		this.stateChangeSubject.next(value);
+	}
+
+	public set isClientRunning(running: boolean) {
+		this.clientRunChangeSubject.next(running);
 	}
 
 	public async run() {

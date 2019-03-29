@@ -28,9 +28,12 @@ export class InstallTask extends Task {
 			mode: 'indeterminate'
 		});
 
-		const appPath = remote.app.getAppPath();
-		const installPath = path.join(appPath, environment.installationPath);
-		const downloadPath = path.join(appPath, environment.downloadPath);
+		const execPath = environment.production
+			? process.env.PORTABLE_EXECUTABLE_DIR
+			: remote.app.getAppPath();
+			
+		const installPath = path.join(execPath, environment.installationPath);
+		const downloadPath = path.join(execPath, environment.downloadPath);
 
 		const cleanUpTrigger = new ReleaseTrigger();
 		if (fs.existsSync(downloadPath)) {
@@ -57,7 +60,7 @@ export class InstallTask extends Task {
 					this.logService.error(e);
 					return;
 				}
-				
+
 				unzipTrigger.release();
 			});
 		};

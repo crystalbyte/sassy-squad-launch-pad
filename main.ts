@@ -16,7 +16,7 @@ function createWindow() {
 		height: 716,
 		resizable: false,
 		transparent: true,
-		title: environment.productName,
+		title: "Sassy Squad Launcher",
 		icon: path.join(__dirname, 'assets/icon.png'),
 		webPreferences: {
 			nodeIntegration: true,

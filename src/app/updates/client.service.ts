@@ -13,9 +13,12 @@ export class ClientService {
 	constructor() { }
 
 	public async getClientInfo(): Promise<ClientInfoModel> {
-		const appPath = remote.app.getAppPath();
+		const execPath = environment.production
+			? process.env.PORTABLE_EXECUTABLE_DIR
+			: remote.app.getAppPath();
+
 		return new Promise((resolve, _) => {
-			let p = path.join(appPath, environment.installationPath, environment.appJson);
+			let p = path.join(execPath, environment.installationPath, environment.appJson);
 			fs.exists(p, exists => {
 				if (!exists) {
 					return resolve({

@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var path = require("path");
 var url = require("url");
-var environment_1 = require("./src/environments/environment");
 var win, serve;
 var args = process.argv.slice(1);
 serve = args.some(function (val) { return val === '--serve'; });
@@ -15,7 +14,7 @@ function createWindow() {
         height: 716,
         resizable: false,
         transparent: true,
-        title: environment_1.environment.productName,
+        title: "Sassy Squad Launcher",
         icon: path.join(__dirname, 'assets/icon.png'),
         webPreferences: {
             nodeIntegration: true,

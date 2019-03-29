@@ -44,6 +44,7 @@ export class StartPageComponent extends DisposableComponent implements OnInit, A
 	public messages: Observable<string>;
 	public stateChanges: Observable<string>;
 	public busyChanges: Observable<boolean>;
+	public clientRunChanges: Observable<boolean>;
 	public errors: Observable<Error>;
 	public nutakuStoreRedirect: string;
 
@@ -60,6 +61,7 @@ export class StartPageComponent extends DisposableComponent implements OnInit, A
 		this.prod = environment.production;
 		this.nutakuStoreRedirect = environment.nutakuGameStoreUrl;
 
+		this.clientRunChanges = this.appService.clientRunChanges;
 		this.errors = this.logService.errors;
 		this.busyChanges = this.taskService.busyChanges;
 		this.stateChanges = this.appService.stateChanges.pipe(map(x => {
@@ -111,10 +113,16 @@ export class StartPageComponent extends DisposableComponent implements OnInit, A
 		this.taskService.process();
 	}
 
+	public toggleDebugInfo(_: Event) {
+		this.logService.error(new Error(`Directory: ${process.env.PORTABLE_EXECUTABLE_DIR}, LogLevel: ${this.logService.level}`));
+	}
+
 	public play(_: Event) {
 		this.logService.clearStoredErrors();
 		this.taskService.reset();
-		this.taskService.enqueue(new LaunchTask(this.logService));
+		this.taskService.enqueue(new LaunchTask(
+			this.logService,
+			this.appService));
 
 		this.taskService.process();
 	}
