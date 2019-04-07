@@ -3,6 +3,8 @@ import { Queue } from 'typescript-collections';
 import { Task } from './task';
 import { Observable, ReplaySubject } from 'rxjs';
 import { LogService } from '../diagnostics/log.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ConnectionError } from '../updates/connection-error';
 
 @Injectable({
 	providedIn: 'root'
@@ -49,10 +51,28 @@ export class TaskService {
 				await this.activeTask.run();
 			}
 		} catch (e) {
-			this.logService.error(e);
+			this.handleError(e);
 		} finally {
 			this.activeTask = undefined;
 			this.busyChangeSubject.next(false);
 		}
+	}
+
+	private handleError(e: any): any {
+		if (e instanceof Error) {
+			this.logService.error(e);
+			return;
+		}
+
+		if (e instanceof HttpErrorResponse) {
+			if (e.status === 0) {
+				const error = new ConnectionError('Connection lost. There seems to be a problem with your internet connection.');
+				this.logService.error(error);
+			}
+
+			return;
+		}
+
+		this.logService.error(e);
 	}
 }

@@ -4,8 +4,12 @@ import { UpdateService } from './updates/update.service';
 import { ClientService } from './updates/client.service';
 import { VersionCheckTask } from './tasks/version-check-task';
 import { LogService } from './diagnostics/log.service';
-import { ReplaySubject, Observable, interval } from 'rxjs';
+import { ReplaySubject, Observable, interval, timer } from 'rxjs';
 import { AppState } from './app-state';
+import { WaitForOnlineTask } from './tasks/wait-for-online-task';
+import { filter } from 'rxjs/operators';
+import { ConnectionError } from './updates/connection-error';
+import { state } from '@angular/animations';
 
 @Injectable({
 	providedIn: 'root'
@@ -43,14 +47,15 @@ export class AppService {
 
 	public async run() {
 		try {
-			this.logService.info("App started.");
+			this.logService.info('App started.');
 
 			this.taskService.reset();
 			this.taskService.enqueue(
-				new VersionCheckTask(
+				new WaitForOnlineTask(
 					this,
 					this.updateService,
 					this.clientService,
+					this.taskService,
 					this.logService));
 
 			await this.taskService.process();

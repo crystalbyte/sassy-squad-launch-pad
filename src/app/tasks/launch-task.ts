@@ -34,13 +34,13 @@ export class LaunchTask extends Task {
 		}
 
 		this.appService.isClientRunning = true;
-		var child = childProcess.spawn(p, [], {
+		const child = childProcess.spawn(p, [], {
 			detached: true,
 			cwd: path.join(execPath, environment.installationPath),
 		});
 
 		child.unref();
-		child.on("close", () => {
+		child.on('close', () => {
 			this.appService.isClientRunning = false;
 			this.appService.run();
 		});

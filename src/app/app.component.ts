@@ -3,7 +3,9 @@ import { LogService } from './diagnostics/log.service';
 import { DisposableComponent } from './components/disposable-component';
 import { AppService } from './app.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter, takeUntil } from 'rxjs/operators';
+import { ConnectionError } from './updates/connection-error';
+import { AppState } from './app-state';
 
 @Component({
 	selector: 'app-root',
@@ -16,6 +18,18 @@ export class AppComponent extends DisposableComponent implements OnInit {
 		private appService: AppService,
 		public logService: LogService) {
 		super();
+
+		this.logService.errors
+			.pipe(
+				filter(x => x !== undefined),
+				takeUntil(this.trigger.releases))
+			.subscribe(async err => {
+				if (err instanceof ConnectionError) {
+					this.appService.state = AppState.Offline;
+				}
+
+				this.appService.run();
+			});
 	}
 
 	public errors: Observable<string>;
@@ -27,6 +41,7 @@ export class AppComponent extends DisposableComponent implements OnInit {
 	public ngOnInit(): void {
 		this.errors = this.logService.errors
 			.pipe(map(x => {
+
 				if (x instanceof Error) {
 					return x.message;
 				}

@@ -18,7 +18,7 @@ export class ClientService {
 			: remote.app.getAppPath();
 
 		return new Promise((resolve, _) => {
-			let p = path.join(execPath, environment.installationPath, environment.appJson);
+			const p = path.join(execPath, environment.installationPath, environment.appJson);
 			fs.exists(p, exists => {
 				if (!exists) {
 					return resolve({
@@ -28,7 +28,7 @@ export class ClientService {
 					});
 				}
 
-				fs.readFile(p, { encoding: 'UTF-8' }, (_, data) => {
+				fs.readFile(p, { encoding: 'UTF-8' }, (_x, data) => {
 					const json = JSON.parse(data);
 					return resolve(json);
 				});

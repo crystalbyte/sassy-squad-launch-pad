@@ -18,12 +18,7 @@ export class VersionCheckTask extends Task {
 
 	public async run(): Promise<void> {
 
-		this.logService.info("Checking client version ...")
-
-		if (!navigator.onLine) {
-			throw new Error("Launcher offline. Unable to connect to the Sassy Squad Services!");
-		}
-
+		this.logService.info('Checking client version ...');
 		this.reportProgress({
 			action: 'Checking client version ...',
 			mode: 'indeterminate'
@@ -32,24 +27,24 @@ export class VersionCheckTask extends Task {
 		const localInfo = await this.clientService.getClientInfo();
 		const remoteInfo = await this.updateService.getVersion();
 
-		if (remoteInfo.data.launcherVersion != remote.app.getVersion()) {
-			this.logService.info("Launcher is out of date!");
+		if (remoteInfo.data.launcherVersion !== remote.app.getVersion()) {
+			this.logService.info('Launcher is out of date!');
 			this.appService.state = AppState.LauncherUpdateRequired;
 			return;
 		}
 
 		if (localInfo.version === 'none') {
-			this.logService.info("Game client not found!");
+			this.logService.info('Game client not found!');
 			this.appService.state = AppState.InstallationRequired;
 		} else {
 			this.appService.state = localInfo.version === remoteInfo.data.version
 				? AppState.Ready
 				: AppState.UpdateRequired;
 
-			if (this.appService.state == AppState.Ready) {
-				this.logService.info("Game client is up to date.");
+			if (this.appService.state === AppState.Ready) {
+				this.logService.info('Game client is up to date.');
 			} else {
-				this.logService.info("Game client is out of date.");
+				this.logService.info('Game client is out of date.');
 			}
 		}
 

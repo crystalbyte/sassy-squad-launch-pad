@@ -17,7 +17,7 @@ export class LogService {
 		this.errorSubject = new ReplaySubject<Error>(1);
 		this.errorSubject.next(undefined);
 
-		let appPath = remote.app.getAppPath();
+		const appPath = remote.app.getAppPath();
 		this.logger = winston.createLogger({
 			level: 'info',
 			format: winston.format.json(),

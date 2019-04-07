@@ -36,9 +36,19 @@
 						i18n="Launcher update|A brief description denoting a new launcher update@@update-launcher-description">
 						Hit the store button to be redirected to the Sassy Squad store page.</span>
 				</div>
+				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="4">
+					<span class="mat-body-strong block"
+						i18n="No connection|A brief title denoting a missing internet connection@@no-connection-title">Connection
+						lost</span>
+					<span class="mat-caption"
+						i18n="Launcher update|A brief description denoting a missing internet connection@@no-connection-description">
+						The Sassy Squad server is currently unavailable. Please check your internet connection and try
+						again.</span>
+				</div>
 				<div class="flex-spacing"></div>
 				<div class="flex" *ngSwitchCase="0">
-					<button (click)="play($event)" mat-flat-button color="primary" class="fx-button" [disabled]="clientRunChanges | async">
+					<button (click)="play($event)" mat-flat-button color="primary" class="fx-button"
+						[disabled]="clientRunChanges | async">
 						<span i18n="Launch game|A single word describing the game launch@@play">Launch</span>
 					</button>
 				</div>
@@ -56,7 +66,13 @@
 				<div class="flex" *ngSwitchCase="3">
 					<button (click)="redirect($event)" mat-flat-button color="accent" class="fx-button">
 						<span
-							i18n="Launcher download|A single word denoting a redirect to the Nutaku game page@@Nutaku">Store</span>
+							i18n="Launcher download|A single word denoting a redirect to the Nutaku store page@@Store">Store</span>
+					</button>
+				</div>
+				<div class="flex" *ngSwitchCase="4">
+					<button mat-flat-button color="accent" class="fx-button" [disabled]="true">
+						<span
+							i18n="Offline note|A single word denoting a missing internet connection@@offline">Offline</span>
 					</button>
 				</div>
 			</div>

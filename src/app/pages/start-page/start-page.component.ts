@@ -20,14 +20,14 @@ import { LogService } from '../../diagnostics/log.service';
 export class StartPageComponent extends DisposableComponent implements OnInit, AfterViewInit {
 
 	private slides = [
-		"assets/slides/L_02.jpg",
-		"assets/slides/L_03.jpg",
-		"assets/slides/L_04.jpg",
-		"assets/slides/L_05.jpg",
-		"assets/slides/L_06.jpg",
-		"assets/slides/L_07.jpg",
-		"assets/slides/L_08.jpg",
-		"assets/slides/L_09.jpg"
+		'assets/slides/L_02.jpg',
+		'assets/slides/L_03.jpg',
+		'assets/slides/L_04.jpg',
+		'assets/slides/L_05.jpg',
+		'assets/slides/L_06.jpg',
+		'assets/slides/L_07.jpg',
+		'assets/slides/L_08.jpg',
+		'assets/slides/L_09.jpg'
 	];
 
 	constructor(
@@ -48,7 +48,7 @@ export class StartPageComponent extends DisposableComponent implements OnInit, A
 	public errors: Observable<Error>;
 	public nutakuStoreRedirect: string;
 
-	@ViewChild("background")
+	@ViewChild('background')
 	public background: ElementRef;
 
 	public ngAfterViewInit(): void {
@@ -83,14 +83,6 @@ export class StartPageComponent extends DisposableComponent implements OnInit, A
 			.pipe(
 				switchMap(x => x.progressChanges),
 				map(x => x.action));
-
-		this.logService.errors
-			.pipe(
-				filter(x => x !== undefined),
-				takeUntil(this.trigger.releases))
-			.subscribe(_ => {
-				this.appService.run();
-			});
 	}
 
 	public error(_: Event) {
@@ -141,8 +133,8 @@ export class StartPageComponent extends DisposableComponent implements OnInit, A
 	}
 
 	private changeSliderImage(): any {
-		let e = this.slides[Math.floor(Math.random() * this.slides.length)];
-		let div = <HTMLDivElement>this.background.nativeElement;
+		const e = this.slides[Math.floor(Math.random() * this.slides.length)];
+		const div = <HTMLDivElement>this.background.nativeElement;
 		div.style.backgroundImage = `url("${e}")`;
 	}
 }

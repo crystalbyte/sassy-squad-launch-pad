@@ -18,7 +18,7 @@ export class UpdateService {
 
 		if (!response.data.launcherVersion) {
 			// Let's inject the current version in case the server is not yet setup
-			response.data.launcherVersion = remote.app.getVersion()
+			response.data.launcherVersion = remote.app.getVersion();
 		}
 
 		return response;

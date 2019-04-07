@@ -21,7 +21,7 @@ export class InstallTask extends Task {
 
 	public async run(): Promise<void> {
 
-		this.logService.info("Downloading game client ...");
+		this.logService.info('Downloading game client ...');
 
 		this.reportProgress({
 			action: 'Installing client ...',
@@ -31,15 +31,15 @@ export class InstallTask extends Task {
 		const execPath = environment.production
 			? process.env.PORTABLE_EXECUTABLE_DIR
 			: remote.app.getAppPath();
-			
+
 		const installPath = path.join(execPath, environment.installationPath);
 		const downloadPath = path.join(execPath, environment.downloadPath);
 
 		const cleanUpTrigger = new ReleaseTrigger();
 		if (fs.existsSync(downloadPath)) {
-			this.logService.info("Removing current game client ...");
+			this.logService.info('Removing current game client ...');
 			rimraf(downloadPath, () => {
-				this.logService.info("Game client successfully removed.");
+				this.logService.info('Game client successfully removed.');
 				cleanUpTrigger.release();
 			});
 
@@ -52,9 +52,9 @@ export class InstallTask extends Task {
 		reader.onloadend = _ => {
 			const buffer: ArrayBuffer = <ArrayBuffer>reader.result;
 			const zip = new AdmZip(Buffer.from(buffer));
-			this.logService.info("Decompressing files ...");
+			this.logService.info('Decompressing files ...');
 			zip.extractAllToAsync(downloadPath, true, e => {
-				this.logService.info("File decompression successfully completed.");
+				this.logService.info('File decompression successfully completed.');
 
 				if (e) {
 					this.logService.error(e);
@@ -88,6 +88,6 @@ export class InstallTask extends Task {
 		});
 
 		this.appService.state = AppState.Ready;
-		this.logService.info("Client installation completed.");
+		this.logService.info('Client installation completed.');
 	}
 }
