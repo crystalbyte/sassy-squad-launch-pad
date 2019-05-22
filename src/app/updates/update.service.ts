@@ -16,9 +16,9 @@ export class UpdateService {
 			responseType: 'json'
 		}).toPromise();
 
-		if (!response.data.launcherVersion) {
+		if (!response.launcherVersion) {
 			// Let's inject the current version in case the server is not yet setup
-			response.data.launcherVersion = remote.app.getVersion();
+			response.launcherVersion = remote.app.getVersion();
 		}
 
 		return response;

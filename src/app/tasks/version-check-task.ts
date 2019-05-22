@@ -27,7 +27,7 @@ export class VersionCheckTask extends Task {
 		const localInfo = await this.clientService.getClientInfo();
 		const remoteInfo = await this.updateService.getVersion();
 
-		if (remoteInfo.data.launcherVersion !== remote.app.getVersion()) {
+		if (remoteInfo.launcherVersion !== remote.app.getVersion()) {
 			this.logService.info('Launcher is out of date!');
 			this.appService.state = AppState.LauncherUpdateRequired;
 			return;
@@ -37,7 +37,7 @@ export class VersionCheckTask extends Task {
 			this.logService.info('Game client not found!');
 			this.appService.state = AppState.InstallationRequired;
 		} else {
-			this.appService.state = localInfo.version === remoteInfo.data.version
+			this.appService.state = localInfo.version === remoteInfo.version
 				? AppState.Ready
 				: AppState.UpdateRequired;
 
