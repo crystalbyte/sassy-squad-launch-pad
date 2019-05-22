@@ -1,12 +1,14 @@
 {
 	"productName": "Sassy Squad Launcher",
-	"buildVersion": "1.0.0.0",
+	"buildVersion": "1.0.1",
 	"directories": {
 		"output": "release/"
 	},
 	"files": [
 		"**/*",
 		"!**/*.ts",
+		"!release/",
+		"!dist/",
 		"!*.code-workspace",
 		"!LICENSE.md",
 		"!package.json",
