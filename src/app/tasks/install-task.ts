@@ -38,7 +38,13 @@ export class InstallTask extends Task {
 		const cleanUpTrigger = new ReleaseTrigger();
 		if (fs.existsSync(downloadPath)) {
 			this.logService.info('Removing current game client ...');
-			rimraf(downloadPath, () => {
+			rimraf(downloadPath, e => {
+				if (e) {
+					this.logService.error(e);
+					cleanUpTrigger.release();
+					return;
+				}
+
 				this.logService.info('Game client successfully removed.');
 				cleanUpTrigger.release();
 			});
@@ -58,6 +64,7 @@ export class InstallTask extends Task {
 
 				if (e) {
 					this.logService.error(e);
+					unzipTrigger.release();
 					return;
 				}
 
@@ -71,7 +78,13 @@ export class InstallTask extends Task {
 
 		const copyTrigger = new ReleaseTrigger();
 		if (fs.existsSync(installPath)) {
-			rimraf(installPath, () => {
+			rimraf(installPath, e => {
+				if (e) {
+					this.logService.error(e);
+					copyTrigger.release();
+					return;
+				}
+
 				copyTrigger.release();
 			});
 

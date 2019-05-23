@@ -4,6 +4,7 @@ import { remote } from 'electron';
 import { Logger } from 'winston';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,7 +18,10 @@ export class LogService {
 		this.errorSubject = new ReplaySubject<Error>(1);
 		this.errorSubject.next(undefined);
 
-		const appPath = remote.app.getAppPath();
+		const appPath = environment.production
+			? process.env.PORTABLE_EXECUTABLE_DIR
+			: remote.app.getAppPath();
+
 		this.logger = winston.createLogger({
 			level: 'info',
 			format: winston.format.json(),

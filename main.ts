@@ -1,7 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import { environment } from './src/environments/environment';
 
 let win, serve;
 const args = process.argv.slice(1);

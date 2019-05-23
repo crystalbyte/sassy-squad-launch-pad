@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "A launcher and updater for Sassy Squad",
 	"author": {
-		"name": "Alexander Wieser",
+		"name": "Bold",
 		"email": "alexander.wieser@happy-tuesday.com"
 	},
 	"keywords": [
@@ -83,9 +83,9 @@
 		"zone.js": "0.8.29"
 	},
 	"dependencies": {
-		"@angular/animations": "^7.2.10",
-		"@angular/cdk": "^7.3.5",
-		"@angular/material": "^7.3.5",
+		"@angular/animations": "^7.2.15",
+		"@angular/cdk": "^7.3.7",
+		"@angular/material": "^7.3.7",
 		"adm-zip": "^0.4.13",
 		"material-design-icons": "^3.0.1",
 		"opn": "^6.0.0",
