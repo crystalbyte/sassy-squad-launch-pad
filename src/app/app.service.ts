@@ -1,15 +1,12 @@
+import { AppState } from './app-state';
 import { Injectable } from '@angular/core';
 import { TaskService } from './tasks/task.service';
 import { UpdateService } from './updates/update.service';
 import { ClientService } from './updates/client.service';
-import { VersionCheckTask } from './tasks/version-check-task';
 import { LogService } from './diagnostics/log.service';
-import { ReplaySubject, Observable, interval, timer } from 'rxjs';
-import { AppState } from './app-state';
+import { ReplaySubject, Observable } from 'rxjs';
 import { WaitForOnlineTask } from './tasks/wait-for-online-task';
-import { filter } from 'rxjs/operators';
-import { ConnectionError } from './updates/connection-error';
-import { state } from '@angular/animations';
+
 
 @Injectable({
 	providedIn: 'root'

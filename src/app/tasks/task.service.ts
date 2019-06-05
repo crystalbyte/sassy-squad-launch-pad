@@ -66,7 +66,7 @@ export class TaskService {
 
 		if (e instanceof HttpErrorResponse) {
 			if (e.status === 0) {
-				const error = new ConnectionError('Connection lost. There seems to be a problem with your internet connection.');
+				const error = new ConnectionError(`There seems to be a problem with your internet connection.\n ${e}`);
 				this.logService.error(error);
 			}
 

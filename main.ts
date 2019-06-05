@@ -2,9 +2,10 @@ import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
-let win, serve;
+let win: BrowserWindow, serve: boolean, debug: boolean;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
+debug = args.some(val => val === '--debug');
 
 function createWindow() {
 
@@ -15,9 +16,10 @@ function createWindow() {
 		height: 716,
 		resizable: false,
 		transparent: true,
-		title: "Sassy Squad Launcher",
+		title: 'Sassy Squad Launcher',
 		icon: path.join(__dirname, 'assets/icon.png'),
 		webPreferences: {
+			webSecurity: false,
 			nodeIntegration: true,
 		},
 	});
@@ -35,7 +37,7 @@ function createWindow() {
 		}));
 	}
 
-	if (serve) {
+	if (serve || debug) {
 		win.webContents.openDevTools();
 	}
 

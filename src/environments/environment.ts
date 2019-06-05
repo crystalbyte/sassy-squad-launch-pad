@@ -5,13 +5,13 @@
 export const environment = {
 	production: false,
 	appJson: 'app.json',
-	executable: "SassySquad.exe",
-	productName: "Sassy Squad Launcher",
+	executable: 'SassySquad.exe',
+	productName: 'Sassy Squad Launcher',
 	versionCheckUrl: 'https://dev.sassy.crystalbyte.de/api/version',
 	clientDownloadUrl: 'http://domainxl.fr/client/dev.zip',
-	nutakuGameStoreUrl: "https://www.nutaku.net/games/download/sassy-squad/",
-	installationPath: "./client",
-	downloadPath: "./$temp"
+	nutakuGameStoreUrl: 'https://www.nutaku.net/games/download/sassy-squad/',
+	installationPath: './client',
+	downloadPath: './$temp'
 };
 
 /*

@@ -1,7 +1,7 @@
 {
 	"name": "sassy-squad-launcher",
-	"version": "1.0.0",
-	"description": "A launcher and updater for Sassy Squad",
+	"version": "1.0.1",
+	"description": "Sassy Squad Launcher",
 	"author": {
 		"name": "Bold",
 		"email": "alexander.wieser@happy-tuesday.com"

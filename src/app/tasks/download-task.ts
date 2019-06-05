@@ -1,7 +1,7 @@
 import { Task } from './task';
 import { environment } from '../../environments/environment.prod';
-import { HttpClient, HttpEventType, HttpRequest, HttpHeaders, HttpDownloadProgressEvent, HttpErrorResponse } from '@angular/common/http';
-import { tap, last, catchError, takeUntil } from 'rxjs/operators';
+import { HttpClient, HttpEventType, HttpRequest, HttpHeaders, HttpDownloadProgressEvent } from '@angular/common/http';
+import { tap, last, takeUntil } from 'rxjs/operators';
 import { LogService } from '../diagnostics/log.service';
 import { TaskService } from './task.service';
 import { InstallTask } from './install-task';
