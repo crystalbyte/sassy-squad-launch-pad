@@ -1,0 +1,100 @@
+<div class="fullscreen flex flex-direction-column background-container" #background>
+	<div class="flex-stretch flex flex-direction-column fullscreen-padding">
+		<div class="flex-stretch" style="pointer-events: none;"></div>
+		<div class="flex flex-direction-column menu" *ngIf="!(busyChanges | async)">
+			<div class="flex flex-direction-row menu-row text-align-right" [ngSwitch]="stateChanges | async">
+				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="0">
+					<span class="mat-body-strong block"
+						i18n="Game ready title|Short title stating the game is ready to be played@@game-ready-title">Everything
+						is up to date!</span>
+					<span class="mat-caption"
+						i18n="Game ready description|Short title stating the game is ready to be played@@game-ready-description">Good
+						news! You can now embark on the quest for Amber's ass and many other adventures.</span>
+				</div>
+				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="1">
+					<span class="mat-body-strong block"
+						i18n="Update available|Short sentence prompting the user that an update is available@@update-available-title">
+						A new update is available!</span>
+					<span class="mat-caption"
+						i18n="Update available|Short sentence prompting he user to update the game client@@update-available-description">
+						Press the update button to download and install the latest version.</span>
+				</div>
+				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="2">
+					<span class="mat-body-strong block"
+						i18n="Installation required|Brief title denoting a required installation@@game-install-title">Install Sassy Squad</span>
+					<span class="mat-caption"
+						i18n="Installation required|Brief description denoting a required installation@@game-install-description">Press
+						the install button to download and
+						install the latest version.</span>
+				</div>
+				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="3">
+					<span class="mat-body-strong block"
+						i18n="Launcher update|A brief title denoting a new launcher update@@update-launcher-title">The
+						launcher requires an update!</span>
+					<span class="mat-caption"
+						i18n="Launcher update|A brief description denoting a new launcher update@@update-launcher-description">
+						Hit the store button to be redirected to the Sassy Squad store page.</span>
+				</div>
+				<div class="flex flex-direction-column justify-items-center flex-stretch" *ngSwitchCase="4">
+					<span class="mat-body-strong block"
+						i18n="No connection|A brief title denoting a missing internet connection@@no-connection-title">Connection
+						lost</span>
+					<span class="mat-caption"
+						i18n="Launcher update|A brief description denoting a missing internet connection@@no-connection-description">
+						The Sassy Squad server is currently unavailable. Please check your internet connection and try
+						again.</span>
+				</div>
+				<div class="flex-spacing"></div>
+				<div class="flex" *ngSwitchCase="0">
+					<button (click)="play($event)" mat-flat-button color="primary" class="fx-button"
+						[disabled]="clientRunChanges | async">
+						<span i18n="Launch game|A single word describing the game launch@@play">Launch</span>
+					</button>
+				</div>
+				<div class="flex" *ngSwitchCase="1">
+					<button (click)="update($event)" mat-flat-button color="accent" class="fx-button">
+						<span i18n="Update game|A single word describing a client update@@update">Update</span>
+					</button>
+				</div>
+				<div class="flex" *ngSwitchCase="2">
+					<button (click)="update($event)" mat-flat-button color="accent" class="fx-button">
+						<span
+							i18n="Install update|A single word describing a client installation@@install">Install</span>
+					</button>
+				</div>
+				<div class="flex" *ngSwitchCase="3">
+					<button (click)="redirect($event)" mat-flat-button color="accent" class="fx-button">
+						<span
+							i18n="Launcher download|A single word denoting a redirect to the Nutaku store page@@Store">Store</span>
+					</button>
+				</div>
+				<div class="flex" *ngSwitchCase="4">
+					<button mat-flat-button color="accent" class="fx-button" [disabled]="true">
+						<span
+							i18n="Offline note|A single word denoting a missing internet connection@@offline">Offline</span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="mat-body message-container"
+			*ngIf="!(errors | async) && (messages | async) && (busyChanges | async)">
+			<span class="mat-caption">{{messages | async}}</span>
+		</div>
+	</div>
+	<mat-progress-bar class="update-bar" [mode]="modes | async" color="accent" [value]="values | async">
+	</mat-progress-bar>
+</div>
+<div class="flex flex-direction-row command-bar">
+	<button (click)="toggleDebugInfo($event)" class="command-button" *ngIf="!prod">
+		<i class="material-icons md-32">assessment</i>
+	</button>
+	<button (click)="error($event)" class="command-button" *ngIf="!prod">
+		<i class="material-icons md-32">error</i>
+	</button>
+	<button (click)="refresh($event)" class="command-button" *ngIf="!prod">
+		<i class="material-icons md-32">refresh</i>
+	</button>
+	<button (click)="quit($event)" class="command-button">
+		<i class="material-icons md-32">close</i>
+	</button>
+</div>

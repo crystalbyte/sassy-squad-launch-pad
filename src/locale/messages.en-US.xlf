@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="d99f6ce021510b7b96afaa1223210645d296389a" datatype="html">
+        <source>
+				Oops! Something went wrong!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description">A generic error title describing that something went wrong.</note>
+        <note priority="1" from="meaning">error-title</note>
+      </trans-unit>
+      <trans-unit id="game-ready-title" datatype="html">
+        <source>Everything is up to date!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/start-page/start-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="game-ready-description" datatype="html">
+        <source>Good news! You can now embark on the quest for Amber&apos;s ass and many other adventures.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/start-page/start-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="update-available-title" datatype="html">
+        <source>
+				A new update is available!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/start-page/start-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description">Short sentence prompting the user that an update is available</note>
+        <note priority="1" from="meaning">update-available-title</note>
+      </trans-unit>
+      <trans-unit id="update-available-description" datatype="html">
+        <source>
+				Press the update button to download and install the latest version.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/start-page/start-page.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Short sentence prompting he user to update the game client</note>
+        <note priority="1" from="meaning">update-available-description</note>
+      </trans-unit>
+      <trans-unit id="game-install-title" datatype="html">
+        <source>No installed version found!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/start-page/start-page.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="game-install-description" datatype="html">
+        <source>Press the install button to download and install the latest version.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/start-page/start-page.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="play" datatype="html">
+        <source>Launch</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/start-page/start-page.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <note priority="1" from="description">A single word describing the game launch</note>
+        <note priority="1" from="meaning">Launch game</note>
+      </trans-unit>
+      <trans-unit id="update" datatype="html">
+        <source>Update</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/start-page/start-page.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <note priority="1" from="description">A single word describing a client update</note>
+        <note priority="1" from="meaning">Update client</note>
+      </trans-unit>
+      <trans-unit id="install" datatype="html">
+        <source>Install</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/start-page/start-page.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <note priority="1" from="description">A single word describing a client installation</note>
+        <note priority="1" from="meaning">Install update</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

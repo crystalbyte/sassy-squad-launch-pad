@@ -1,0 +1,36 @@
+@import "../../node_modules/@angular/material/theming";
+// Plus imports for other components in your app.
+
+$general-typography: mat-typography-config(
+	$font-family: "Twenty Century",
+	$body-1: mat-typography-level(20px, 24px, 500),
+	$body-2: mat-typography-level(20px, 24px, 700),
+	$caption: mat-typography-level(16px, 20px, 500)
+);
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core($general-typography);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$sassy-squad-primary: mat-palette($mat-teal, A400, A200, A700);
+$sassy-squad-accent: mat-palette($mat-pink);
+
+// The warn palette is optional (defaults to red).
+$sassy-squad-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$sassy-squad-theme: mat-dark-theme($sassy-squad-primary, $sassy-squad-accent, $sassy-squad-warn);
+
+// Publish as active theme.
+$active-theme: $sassy-squad-theme;
+
+.sassy-squad-theme {
+	// Include theme styles for core and each component used in your app.
+	// Alternatively, you can import and @include the theme mixins for each component
+	// that you are using.
+	@include angular-material-theme($sassy-squad-theme);
+}

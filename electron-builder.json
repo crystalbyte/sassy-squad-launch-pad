@@ -1,0 +1,44 @@
+{
+	"productName": "Sassy Squad Launcher",
+	"directories": {
+		"output": "release/"
+	},
+	"files": [
+		"**/*",
+		"!**/*.ts",
+		"!release/",
+		"!client/",
+		"!error.log",
+		"!combined.log",
+		"!*.code-workspace",
+		"!LICENSE.md",
+		"!package.json",
+		"!package-lock.json",
+		"!src/",
+		"!e2e/",
+		"!hooks/",
+		"!angular.json",
+		"!_config.yml",
+		"!karma.conf.js",
+		"!tsconfig.json",
+		"!tslint.json"
+	],
+	"win": {
+		"icon": "src/assets/icon.png",
+		"target": [
+			"portable"
+		]
+	},
+	"mac": {
+		"icon": "src/assets/icon.png",
+		"target": [
+			"dmg"
+		]
+	},
+	"linux": {
+		"icon": "src/assets/icon.png",
+		"target": [
+			"AppImage"
+		]
+	}
+}

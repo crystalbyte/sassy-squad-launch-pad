@@ -1,0 +1,67 @@
+@import "../../node_modules/@angular/material/theming";
+@import "../themes/sassy-squad-theme.scss";
+
+$foreground: map-get($active-theme, foreground);
+$warn: map-get($active-theme, warn);
+$accent: map-get($active-theme, accent);
+$primary: map-get($active-theme, primary);
+
+$accent-color: mat-color($accent);
+$primary-color: mat-color($primary);
+$text-color: mat-color($foreground, text);
+$warn-color: mat-color($warn, text);
+
+@mixin strip-border($breadth, $color) {
+	border-bottom: $breadth solid $color;
+}
+
+:host {
+	.logo {
+		left: -54px;
+		top: -108px;
+		width: 300px;
+		height: auto;
+		position: absolute;
+		transform: rotate(-9deg);
+	}
+
+	.title-bar {
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 50px;
+		position: absolute;
+		background-color: transparent;
+		-webkit-app-region: drag;
+	}
+
+	.error-overlay {
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 100000;
+		color: $text-color;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+
+		.error-strip {
+			max-height: 300px;
+			align-self: stretch;
+			padding: 18px;
+			background-color: fade-out($color: #000000, $amount: 0.2);
+
+			@include strip-border(1px, $warn-color);
+
+			&-column {
+				width: 60%;
+				height: 100%;
+				margin: 0 auto;
+			}
+		}
+	}
+}

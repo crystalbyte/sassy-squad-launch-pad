@@ -1,0 +1,93 @@
+@import "../../../../node_modules/@angular/material/theming";
+@import "../../../themes/sassy-squad-theme.scss";
+
+$foreground: map-get($active-theme, foreground);
+$accent: map-get($active-theme, accent);
+
+$accent-color: mat-color($accent);
+$text-color: mat-color($foreground, text);
+
+$progress-bar-height: 18px;
+$menu-padding: 12px;
+
+@mixin stick-to-bottom() {
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	position: absolute;
+}
+
+:host {
+	.flex-spacing {
+		width: $menu-padding;
+	}
+
+	.message-container {
+		@include stick-to-bottom();
+		background-color: fade-out($color: #000000, $amount: 0.4);
+		padding: $menu-padding $menu-padding $menu-padding + $progress-bar-height $menu-padding;
+		color: $text-color;
+	}
+
+	.menu {
+		@include stick-to-bottom();
+		background-color: fade-out($color: #000000, $amount: 0.4);
+		padding: $menu-padding $menu-padding $menu-padding + $progress-bar-height $menu-padding;
+		color: $text-color;
+
+		&-row {
+			justify-content: center;
+		}
+
+		& * h4 {
+			font-size: 1.2em;
+			padding: 0;
+		}
+	}
+
+	.background-container {
+		background-image: url("../../../assets/slides/L_01.jpg");
+		background-repeat: no-repeat;
+		background-size: cover;
+		position: relative;
+		color: $text-color;
+		transition: background-image 1s ease-in-out;
+	}
+
+	.command-bar {
+		top: 0;
+		right: 0;
+		position: absolute;
+
+		.command-button {
+			width: 45px;
+			height: 29px;
+			padding-top: 2px;
+			border: 0 solid transparent;
+			background-color: transparent;
+			color: $text-color;
+			transition: 0.3s;
+
+			&:hover {
+				background-color: $accent-color;
+			}
+		}
+	}
+
+	.fx-button {
+		text-align: center;
+		padding: 10px 40px;
+		font-size: 1.4em !important;
+		border-radius: 0 !important;
+		cursor: default !important;
+
+		& > span {
+			pointer-events: none;
+		}
+	}
+
+	.update-bar {
+		height: $progress-bar-height;
+	}
+}
